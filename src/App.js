@@ -25,7 +25,10 @@ export default class App extends Component {
 
   add_click = () => {
     const {masClick} = this.state;
-    
+    const newClick = {time_1_percent: 100, text: 'GT 730', id: 2}
+    this.setState({
+      masClick: [...masClick, newClick]
+    })
   }
 
   render() {
@@ -53,13 +56,14 @@ export default class App extends Component {
           masClick={masClick}
           count={count}
           click={this.click}
+          add_click = {this.add_click}
         ></GamePlace>
       </div>
     )
   }
 }
 
-const GamePlace = ({ element, masClick, count, click }) => {
+const GamePlace = ({ element, masClick, count, click, add_click}) => {
   return (
     <div className='Game-place'>
       <div className = 'List-click'>
@@ -71,15 +75,18 @@ const GamePlace = ({ element, masClick, count, click }) => {
           time_1_percent={10}
         ></Click>
       </div>
-      <Shop></Shop>
+      <Shop
+        add_click = {add_click}
+      ></Shop>
     </div>
   )
 }
 
-const Shop = () => {
+const Shop = ({add_click}) => {
   return (
     <div className="Shop">
       <p>Магазин</p>
+      <button onClick = {add_click}><p>Взять GT 730</p></button>
     </div>
   )
 }
