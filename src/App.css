@@ -6,24 +6,41 @@
   background-color: #282c34;
   width: 100vw;
   height: 100vh;
+  
 }
 
 .App-header {
   background-color:gray;
   width: 100%;
-  height: auto;
+  height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
+
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.App-header p {
+  font-size: 40px;
+}
 
 .Game-place{
-  background-color:aliceblue;
-  width: 60vw;
+  display: flex;
+  flex-direction: row;
   height: 100%;
+}
+.Game-place p {
+  font-size: 26px;
+}
+.List-click{
+  background-color:aliceblue !important;
+  width: 60vw;
+}
+
+.Shop{
+  background-color:burlywood;
+  width: 40vw;
 }
 
 

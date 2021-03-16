@@ -12,8 +12,10 @@ export default class App extends Component {
 
   state = {
     count: 0,
+    masClick: [
+      { time_1_percent: 100, text: 'GT 730', id: 1 },
+    ]
   }
-
 
   click = () => {
     this.setState({
@@ -21,9 +23,13 @@ export default class App extends Component {
     })
   }
 
+  add_click = () => {
+    const {masClick} = this.state;
+    
+  }
 
   render() {
-    const { count} = this.state;
+    const { count, masClick } = this.state;
     let element;
     if (count % 10 === 0 && count !== 0) {
       element = (
@@ -38,26 +44,44 @@ export default class App extends Component {
     return (
       <div className='App'>
         <div className='App-header'>
-          <h1>
+          <p>
             Miner_VideoCard
-          </h1>
+          </p>
         </div>
-        <div className='Game-place'>
-          <h2>Сделано кликов: {count}</h2>
-          {element}
-          <Click
-            onClick={this.click}
-            time_1_percent = {10}
-          ></Click>
-          <Click
-            onClick={this.click}
-            time_1_percent = {20}
-          ></Click>
-
-        </div>
+        <GamePlace
+          element={element}
+          masClick={masClick}
+          count={count}
+          click={this.click}
+        ></GamePlace>
       </div>
     )
   }
+}
+
+const GamePlace = ({ element, masClick, count, click }) => {
+  return (
+    <div className='Game-place'>
+      <div className = 'List-click'>
+        <p>Сделано кликов: {count}</p>
+        {element}
+        <Click
+          masClick={masClick}
+          onClick={click}
+          time_1_percent={10}
+        ></Click>
+      </div>
+      <Shop></Shop>
+    </div>
+  )
+}
+
+const Shop = () => {
+  return (
+    <div className="Shop">
+      <p>Магазин</p>
+    </div>
+  )
 }
 
 

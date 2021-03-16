@@ -1,11 +1,31 @@
 import React, {Component} from 'react';
 
-export default class Click extends Component {
+const click = ({masClick, onClick}) => {
+  const element = masClick.map((item) => {
+    const {time_1_percent, text, id} = item;
+    return(
+      <div key = {`click_${id}`}>
+        <Click 
+          time_1_percent = {time_1_percent}
+          text = {text}
+          onClick = {onClick}
+        ></Click>
+      </div>
+    )
+  })
+  return(
+    <>
+      {element}
+    </>
+  )
+
+}
+
+class Click extends Component {
 
     state = {
       cooldown: 0,
       can_click: true,
-      time_1_percent: this.props.time_1_percent
     }
   
     click = () => {
@@ -19,7 +39,7 @@ export default class Click extends Component {
       }
     }
     start_cooldown = () => {
-      const { time_1_percent } = this.state;
+      const { time_1_percent } = this.props;
       this.time = setInterval(this.plus_cooldown, time_1_percent)
     }
   
@@ -40,13 +60,18 @@ export default class Click extends Component {
   
     render() {
   
-      const { count, cooldown, time_1_percent } = this.state;
+      const {cooldown} = this.state;
+      const {time_1_percent, text} = this.props
       return (
         <div>
+          <a>{text} </a>
           <button onClick={this.click}>Нажми меня!</button>
+          <a> </a>
           <progress max="100" value={cooldown}></progress>
           <a> {(time_1_percent / 10 - cooldown * time_1_percent / 1000).toFixed(2)} сек</a>
         </div>
       )
     }
   }
+
+  export default click;
