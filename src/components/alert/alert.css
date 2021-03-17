@@ -1,0 +1,52 @@
+#alert_Cont{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    height: max-content;
+    z-index: 10;
+}
+.alert_win{
+    min-width: 200px;
+    min-height: 50px;
+    width: max-content;
+    height: max-content;
+    border: 1px solid black;
+    border-radius: 10%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    text-align: center;
+    align-items: center;
+}
+.alert_text{
+    margin:0 auto;
+}
+
+/* #win table{
+    position: relative;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+#win td{
+    border: 0px;
+} */
+
+.alert_vis{
+    display: none;
+    animation-name: vis;
+    animation-duration: 1s;
+}
+
+@keyframes vis{
+    0% {display: flex};
+    100% {display: none};
+}
+
+.close_alert{
+    position: relative;
+    border: 1px solid black;
+    right: 2px;
+    cursor: pointer;
+}

@@ -36,11 +36,32 @@
 .List-click{
   background-color:aliceblue !important;
   width: 60vw;
+  overflow: auto;
 }
+
+.click{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.click > *{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.click div{
+  width: 120px;
+} 
 
 .Shop{
   background-color:burlywood;
   width: 40vw;
+  overflow: auto;
+}
+
+.img_VC{
+  zoom: 20%;
 }
 
 

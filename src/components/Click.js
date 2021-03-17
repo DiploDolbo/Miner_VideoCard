@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import gt730_notwork from '../img/work/Videocard_notwork.png';
+import gt730_work from '../img/work/Videocard_work.gif';
 
 const click = ({masClick, onClick}) => {
   const element = masClick.map((item) => {
@@ -60,15 +62,18 @@ class Click extends Component {
   
     render() {
   
-      const {cooldown} = this.state;
+      const {cooldown, can_click} = this.state;
       const {time_1_percent, text} = this.props
+      let img;
+      if(can_click){img = gt730_notwork;}
+      else {img = gt730_work}
       return (
-        <div>
+        <div className = 'click'>
           <a>{text} </a>
           <button onClick={this.click}>Нажми меня!</button>
-          <a> </a>
-          <progress max="100" value={cooldown}></progress>
-          <a> {(time_1_percent / 10 - cooldown * time_1_percent / 1000).toFixed(2)} сек</a>
+          <img className = "img_VC" src = {img} alt = {'logo'}></img>
+          {/* <progress max="100" value={cooldown}></progress> */}
+          <div><a> {(time_1_percent / 10 - cooldown * time_1_percent / 1000).toFixed(2)} сек</a></div>
         </div>
       )
     }
