@@ -55,7 +55,8 @@ class Click extends Component {
       else {
         clearInterval(this.time);
         this.setState({
-          can_click: true
+          can_click: true,
+          cooldown: 0
         })
       }
     }

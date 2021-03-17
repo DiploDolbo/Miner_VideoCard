@@ -14,10 +14,13 @@ export default class App extends Component {
   state = {
     count: 0,
     masClick: [
-      { time_1_percent: 0.1, text: 'GT 730', id: 0 },
     ],
-    library_VC: [{ time_1_percent: 0.1, text: 'GT 730'}],
+    library_VC: [{ time_1_percent: 10, text: 'GT 730'}],
     activeAlert: []
+  }
+
+  componentDidMount(){
+    this.add_click('GT 730')
   }
 
   click = () => {
