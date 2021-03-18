@@ -12,17 +12,12 @@
 .App-header {
   background-color:gray;
   width: 100%;
-  height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  font-size: calc(10px + 2vmin);
+  height: max-content;
+  /* display: flex;
+  flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: center; */
   color: white;
-}
-.App-header p {
-  font-size: 40px;
 }
 
 .Game-place{
@@ -38,15 +33,6 @@
   width: 60vw;
   overflow: auto;
 }
-
-.Shop{
-  background-color:burlywood;
-  width: 40vw;
-  overflow: auto;
-}
-
-
-
 
 
 /* @media (prefers-reduced-motion: no-preference) {

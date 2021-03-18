@@ -1,0 +1,19 @@
+.Shop {
+    background-color: burlywood;
+    width: 40vw;
+    overflow: auto;
+}
+
+.Shop button{
+    font-size: 24px;
+}
+
+.shop_item{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.shop_item > * {
+    margin: 5px 5px 5px 5px;
+}

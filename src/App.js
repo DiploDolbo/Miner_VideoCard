@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Alert from './components/alert/alert';
 
-import Click from './components/Click/Click'
+import Click from './components/Click/Click';
+import Shop from './components/Shop/Shop';
 import './App.css';
 
 export default class App extends Component {
@@ -9,33 +10,37 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.time = 0;
+    this.library_VC = 
+    [
+      { time_1_percent: 10, text: 'GT 730', plus: 1, price: 5},
+      { time_1_percent: 8, text: 'GT 750', plus: 1.5, price: 8}
+    ];
   }
 
   state = {
     count: 0,
     masClick: [
     ],
-    library_VC: [{ time_1_percent: 10, text: 'GT 730', plus: 0.1}],
     activeAlert: []
   }
 
   componentDidMount(){
-    this.add_click('GT 730')
+    this.add_click({text:'GT 730', price: 0})
   }
 
   click = (plus) => {
     if (this.state.count % 10 === 9 && this.state.count !== 0) {
-      this.onAlert(`Вау ты сделал ${this.state.count + 1} кликов!`)
+      this.onAlert(`Вау ты намайнить ${+this.state.count + 1} кликов!`)
     }
     this.setState({
       count: (+this.state.count + plus).toFixed(1)
     })
   }
 
-  add_click = (text) => {
-    const { masClick, library_VC} = this.state;
-    const indexClick = library_VC.findIndex(item => item.text === text)
-    const nClick = library_VC.slice(indexClick, indexClick + 1);
+  add_click = ({text, price}) => {
+    const { masClick, count} = this.state;
+    const indexClick = this.library_VC.findIndex(item => item.text === text)
+    const nClick = this.library_VC.slice(indexClick, indexClick + 1);
     const newClick = Object.assign({},nClick[0])
     const countClick = masClick.filter(item =>{
       return item.text === text
@@ -43,14 +48,23 @@ export default class App extends Component {
     newClick.id = countClick.length;
     // const newClick = { time_1_percent: 100, text: 'GT 730', id: 2 }
     this.setState({
-      masClick: [...masClick, newClick]
+      masClick: [...masClick, newClick],
+      count: count - price
+
     })
+  }
+
+  buy_click = ({text, price}) =>{
+    const {count} = this.state;
+    if(count >= price){this.add_click({text, price})}
+    else{this.onAlert('Не хватает')}
+
   }
 
   onAlert = (message) => {
     this.setState(({ activeAlert }) => {
       let id;
-      if (activeAlert.length == 0) {
+      if (activeAlert.length === 0) {
         id = 0;
       }
       else {
@@ -67,7 +81,7 @@ export default class App extends Component {
 
   closeAlert = (id) => {
     this.setState(({ activeAlert }) => {
-      const index = activeAlert.findIndex((item) => item.id == id)
+      const index = activeAlert.findIndex((item) => item.id === id)
       const before = activeAlert.slice(0, index);
       const after = activeAlert.slice(index + 1);
       const neew = [...before, ...after];
@@ -83,32 +97,30 @@ export default class App extends Component {
     return (
       <div className='App'>
         <div className='App-header'>
-          <p>
-            Miner_VideoCard
-          </p>
+          <h1>Miner_VideoCard</h1>
+          <h3 style = {{color: 'darkred'}}>С одобрения Ирины</h3>
         </div>
         <Alert
           activeAlert = {activeAlert} 
           closeAlert = {this.closeAlert}
-
         ></Alert>
         <GamePlace
           masClick={masClick}
           count={count}
           click={this.click}
-          add_click={this.add_click}
+          buy_click={this.buy_click}
+          library_VC={this.library_VC}
         ></GamePlace>
       </div>
     )
   }
 }
 
-const GamePlace = ({ element, masClick, count, click, add_click }) => {
+const GamePlace = ({masClick, count, click, buy_click, library_VC}) => {
   return (
     <div className='Game-place'>
       <div className='List-click'>
-        <p>Сделано кликов: {count}</p>
-        {element}
+        <p>Намайнил: {count}</p>
         <Click
           masClick={masClick}
           onClick={click}
@@ -116,20 +128,13 @@ const GamePlace = ({ element, masClick, count, click, add_click }) => {
         ></Click>
       </div>
       <Shop
-        add_click={add_click}
+        library_VC={library_VC}
+        buy_click={buy_click}
       ></Shop>
     </div>
   )
 }
 
-const Shop = ({ add_click }) => {
-  return (
-    <div className="Shop">
-      <p>Магазин</p>
-      <button onClick={() => {add_click('GT 730')}}><p>Взять GT 730</p></button>
-    </div>
-  )
-}
 
 
 
