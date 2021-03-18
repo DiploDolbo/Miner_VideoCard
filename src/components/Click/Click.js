@@ -8,7 +8,7 @@ const click = ({masClick, onClick}) => {
   const element = masClick.map((item) => {
     const {time_1_percent, text, id, plus} = item;
     return(
-      <div key = {`click_${id}`}>
+      <div key = {`${text}_${id}`}>
         <Click 
           time_1_percent = {time_1_percent}
           text = {text}
@@ -50,7 +50,7 @@ class Click extends Component {
   
     plus_cooldown = () => {
       const { cooldown } = this.state;
-      if (cooldown != 100) {
+      if (cooldown !== 100) {
         this.setState({
           cooldown: cooldown + 1
         })

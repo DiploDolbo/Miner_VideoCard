@@ -25,17 +25,17 @@ const Alert = ({ activeAlert, closeAlert }) => {
 
 class Al extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     componentDidMount() {
         const {closeAlert, id} = this.props;
-        setTimeout(() => closeAlert(id), 2000)
+        setTimeout(() => closeAlert(id), 1000)
     }
 
     render() {
-        const { text, id, closeAlert} = this.props;
+        const { text, id} = this.props;
         return (
             <div id={`alert_win_${id}`} className='alert_win'>
                 <span id={`alert_text_${id}`} className='alert_text'>{`${text}`}</span>

@@ -5,6 +5,10 @@
     justify-content: center;
 }
 
+.click button{
+    font-size: 20px;
+}
+
 .click>* {
     margin-left: 5px;
     margin-right: 5px;
@@ -18,15 +22,9 @@
 }
 
 .img_VC{
-    height: 9vh;
-    width: 9vw;
-}
-
-.img_VC img{
     position: relative;
-    height: 100%;
-    width: 100%;
-    top: -5px;
+    top: -20px;
+    zoom: 0.2;
 }
 
 .time_cooldown{
