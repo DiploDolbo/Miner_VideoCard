@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Alert from './components/alert/alert';
 
-import Click from './components/Click'
+import Click from './components/Click/Click'
 import './App.css';
 
 export default class App extends Component {
@@ -15,7 +15,7 @@ export default class App extends Component {
     count: 0,
     masClick: [
     ],
-    library_VC: [{ time_1_percent: 10, text: 'GT 730'}],
+    library_VC: [{ time_1_percent: 10, text: 'GT 730', plus: 0.1}],
     activeAlert: []
   }
 
@@ -23,12 +23,12 @@ export default class App extends Component {
     this.add_click('GT 730')
   }
 
-  click = () => {
+  click = (plus) => {
     if (this.state.count % 10 === 9 && this.state.count !== 0) {
       this.onAlert(`Вау ты сделал ${this.state.count + 1} кликов!`)
     }
     this.setState({
-      count: this.state.count + 1
+      count: (+this.state.count + plus).toFixed(1)
     })
   }
 

@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
-import gt730_notwork from '../img/work/Videocard_notwork.png';
-import gt730_work from '../img/work/Videocard_work.gif';
+import gt730_notwork from '../../img/work/Videocard_notwork.png';
+import gt730_work from '../../img/work/Videocard_work.gif';
+
+import "./click.css"
 
 const click = ({masClick, onClick}) => {
   const element = masClick.map((item) => {
-    const {time_1_percent, text, id} = item;
+    const {time_1_percent, text, id, plus} = item;
     return(
       <div key = {`click_${id}`}>
         <Click 
           time_1_percent = {time_1_percent}
           text = {text}
           onClick = {onClick}
+          plus = {plus}
         ></Click>
       </div>
     )
@@ -30,14 +33,14 @@ class Click extends Component {
       can_click: true,
     }
   
-    click = () => {
+    click = (plus) => {
       if (this.state.can_click) {
         this.start_cooldown()
         this.setState({
           can_click: false,
           cooldown: 0
         })
-        this.props.onClick();
+        this.props.onClick(plus);
       }
     }
     start_cooldown = () => {
@@ -64,17 +67,17 @@ class Click extends Component {
     render() {
   
       const {cooldown, can_click} = this.state;
-      const {time_1_percent, text} = this.props
+      const {time_1_percent, text, plus} = this.props
       let img;
       if(can_click){img = gt730_notwork;}
       else {img = gt730_work}
       return (
         <div className = 'click'>
-          <a>{text} </a>
-          <button onClick={this.click}>Нажми меня!</button>
-          <img className = "img_VC" src = {img} alt = {'logo'}></img>
+          <div className = 'name_click'>{text}</div>
+          <button onClick={() => {this.click(plus)}}>Нажми меня!</button>
+          <div className = "img_VC"><img src = {img} alt = {'logo'}></img></div>
           {/* <progress max="100" value={cooldown}></progress> */}
-          <div><a> {(time_1_percent / 10 - cooldown * time_1_percent / 1000).toFixed(2)} сек</a></div>
+          <div className = "time_cooldown">{(time_1_percent / 10 - cooldown * time_1_percent / 1000).toFixed(2)} сек</div>
         </div>
       )
     }
