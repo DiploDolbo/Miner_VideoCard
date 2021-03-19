@@ -1,0 +1,28 @@
+.tab_wp {
+  display: flex;
+  cursor: pointer;
+  /* border: 0.5px solid #636363; */
+  background-color: #eeee;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  width: 20vw;
+}
+
+.tab_wp a{
+  font-size: 24px;
+}
+
+.tab_wp_active {
+  background-color: rgb(189, 189, 189) !important;
+  opacity: 1;
+}
+
+.tab_close {
+  opacity: 0;
+}
+
+.tab_close:hover {
+  opacity: 1 !important;
+}

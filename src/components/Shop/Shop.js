@@ -14,7 +14,6 @@ const Shop = ({ buy_click, library_VC }) => {
 
     return (
         <div className="Shop">
-            <p>Магазин</p>
             <div id = 'shop_list'>
                 {element}
             </div>

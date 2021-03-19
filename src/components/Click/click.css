@@ -14,11 +14,11 @@
     margin-right: 5px;
 }
 
-
 .name_click{
     height: max-content;
-    width: 10vw;
+    width: 12vw;
     text-align: right;
+    font-size: 24px;
 }
 
 .img_VC{
@@ -29,6 +29,7 @@
 
 .time_cooldown{
     height: max-content;
-    width: 10vw;
+    width: 14vw;
     text-align: left;
+    font-size: 18px;
 }

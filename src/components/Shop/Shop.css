@@ -1,10 +1,10 @@
 .Shop {
-    background-color: burlywood;
-    width: 40vw;
     overflow: auto;
 }
 
 .Shop button{
+    height: max-content;
+    width: 200px;
     font-size: 24px;
 }
 
@@ -13,6 +13,10 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+.shop_item a{
+    text-align: left;
+    width: 120px;
 }
 .shop_item > * {
     margin: 5px 5px 5px 5px;
