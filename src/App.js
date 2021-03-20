@@ -15,75 +15,76 @@ export default class App extends Component {
     super(props);
     this.time = 0;
     this.alert_money = 10;
-    this.time_payment = 10;
-    this.library_VC = 
-    [
-      { time_1_percent: 10, text: 'GT 730', plus: 1, price: 5},
-      { time_1_percent: 8, text: 'GT 750', plus: 1.5, price: 8},
-      { time_1_percent: 5, text: 'GT 760', plus: 2, price: 16}
-    ];
+    this.time_payment = 20;
+    this.library_VC =
+      [
+        { time_1_percent: 1, text: 'GT 730', plus: 1, price: 5 },
+        { time_1_percent: 0.8, text: 'GT 750', plus: 1.5, price: 8 },
+        { time_1_percent: 0.5, text: 'GT 760', plus: 2, price: 16 }
+      ];
   }
 
   state = {
-    money: 0,
+    money: 10,
     count: 0,
     payment: 0.5,
     masClick: [
     ],
     activeAlert: [],
     tab: [
-      { nameWP: "Shop", text: "Магазин"},
+      { nameWP: "Shop", text: "Магазин" },
       { nameWP: "Upgrade", text: "Upgrade" }
     ],
     frame: [
-      {nameF: "Shop"},
-      {nameF: "Upgrade"}
+      { nameF: "Shop" },
+      { nameF: "Upgrade" }
     ],
-    activeFrame: {name: "Shop"}
+    activeFrame: { name: "Shop" }
   }
 
-  componentDidMount(){
-    this.add_click({text:'GT 730', price: 0})
+  componentDidMount() {
+    this.add_click({ text: 'GT 730', price: 0 })
   }
 
   click = (plus) => {
-    const {money, count, payment} = this.state;
+    const { money, count, payment } = this.state;
 
-    let mon = (+money + plus).toFixed(1)
-    if (count % this.time_payment === 0 && count !== 0)
-    {
-      mon -= payment;
+    let mon = (+money + plus).toFixed(1);
+    if (count % this.time_payment === 0 && count !== 0) {
+      mon = (+mon - payment).toFixed(1);
       this.onAlert(`ПЛАТИ НАЛОГИ ${payment}!`)
     }
     console.log(count);
-
     this.setState({
       money: mon,
       count: count + 1
     })
   }
 
-  add_click = ({text, price}) => {
-    const { masClick, money, payment} = this.state;
+  add_click = ({ text, price }) => {
+    const { masClick, money, payment } = this.state;
     const indexClick = this.library_VC.findIndex(item => item.text === text)
     const nClick = this.library_VC.slice(indexClick, indexClick + 1);
-    const newClick = Object.assign({},nClick[0])
-    const moneyClick = masClick.filter(item =>{
+    const newClick = Object.assign({}, nClick[0])
+    const moneyClick = masClick.filter(item => {
       return item.text === text
     })
     newClick.id = moneyClick.length;
+    let pay = (+payment + price * 0.1).toFixed(1);
+    let mon = (+money - price).toFixed(1)
+
     // const newClick = { time_1_percent: 100, text: 'GT 730', id: 2 }
     this.setState({
       masClick: [...masClick, newClick],
-      money: money - price,
-      payment: payment + price * 0.1
+      money: mon,
+      payment: pay
     })
   }
 
-  buy_click = ({text, price}) =>{
-    const {money} = this.state;
-    if(money >= price){this.add_click({text, price})}
-    else{this.onAlert('Не хватает')}
+  buy_click = ({ text, price }) => {
+    const { money } = this.state;
+    if (money >= price) { this.add_click({ text, price }) }
+    else { this.onAlert('Не хватает') }
 
   }
 
@@ -123,11 +124,11 @@ export default class App extends Component {
 
     if (`${nameWP}_tab_${id_t}` == `${name}_tab_${id}`) return;
     else {
-        this.setState({
-            activeFrame: { name: nameWP, id: id_t }
-        })
+      this.setState({
+        activeFrame: { name: nameWP, id: id_t }
+      })
     }
-}
+  }
 
   render() {
     const { money, masClick, activeAlert, tab, frame, activeFrame } = this.state;
@@ -135,11 +136,11 @@ export default class App extends Component {
       <div className='App'>
         <div className='App-header'>
           <a>Miner_VideoCard</a>
-          <a style = {{color: 'darkred'}}>С одобрения Ирины</a>
+          <a style={{ color: 'darkred' }}>С одобрения Ирины</a>
         </div>
         <Alert
-          activeAlert = {activeAlert} 
-          closeAlert = {this.closeAlert}
+          activeAlert={activeAlert}
+          closeAlert={this.closeAlert}
         ></Alert>
         <GamePlace
           masClick={masClick}
@@ -157,7 +158,7 @@ export default class App extends Component {
   }
 }
 
-const GamePlace = ({masClick, money, click, buy_click, library_VC, tab, frame, activeFrame, onSwitch}) => {
+const GamePlace = ({ masClick, money, click, buy_click, library_VC, tab, frame, activeFrame, onSwitch }) => {
   return (
     <div className='Game-place'>
       <div className='List-click'>
@@ -168,8 +169,8 @@ const GamePlace = ({masClick, money, click, buy_click, library_VC, tab, frame, a
           time_1_percent={10}
         ></Click>
       </div>
-      <div id = 'shop_upgrade'>
-        <div id = 'tab_s_u'>
+      <div id='shop_upgrade'>
+        <div id='tab_s_u'>
           <Tab
             tab={tab}
             activeFrame={activeFrame}
@@ -177,6 +178,7 @@ const GamePlace = ({masClick, money, click, buy_click, library_VC, tab, frame, a
           >
           </Tab>
         </div>
+        <div id='frames'>
           <Frame
             frame={frame}
             activeFrame={activeFrame}
@@ -184,8 +186,10 @@ const GamePlace = ({masClick, money, click, buy_click, library_VC, tab, frame, a
             library_VC={library_VC}
           >
           </Frame>
+
+        </div>
       </div>
-      
+
     </div>
   )
 }
