@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+
+// Видеокарты
 import gt730_notwork from '../../img/work/Videocard_notwork.png';
 import gt730_work from '../../img/work/Videocard_work.gif';
 
+// Инфо
+import info_click_img from '../../img/work/InfoClick.png'
+
+
 import "./click.css"
 
-const click = ({ masClick, onClick, money}) => {
+const click = ({ masClick, onClick, money }) => {
   const element = masClick.map((item) => {
     const { time_1_percent, text, id, plus } = item;
     return (
-      <div key={`${text}_${id}`}>
+      <div className='click' key={`${text}_${id}`}>
         <Click
           time_1_percent={time_1_percent}
           text={text}
@@ -76,13 +82,18 @@ class Click extends Component {
     if (can_click) { img = gt730_notwork; }
     else { img = gt730_work }
     return (
-      <div className='click'>
-        <div className='name_click'>{text}</div>
-        <button onClick={() => { this.click(plus) }}>Нажми меня!</button>
-        <div className="img_VC"><img src={img} alt={'logo'}></img></div>
+      <>
+        <div className="info_click">
+          <img className="info_click_img" alt={'logo'} src={info_click_img}></img>
+          <div className="info_click_text">
+            <div className='name_click'>{text}</div>
+            <div className="time_cooldown">{(time_1_percent / 10 - cooldown * time_1_percent / 1000).toFixed(2)} сек</div>
+          </div>
+        </div>
+        <div className="img_VC" onClick={() => { this.click(plus) }}><img src={img} alt={'logo'}></img></div>
         {/* <progress max="100" value={cooldown}></progress> */}
-        <div className="time_cooldown">{(time_1_percent / 10 - cooldown * time_1_percent / 1000).toFixed(2)} сек</div>
-      </div>
+
+      </>
     )
   }
 }

@@ -1,8 +1,15 @@
 #list{
     margin-top: 20px;
     overflow: auto;
-    height: 100vh;
+    height: max-content;
+    max-height: 75vh;
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .List-click a {
     font-size: 24px;
@@ -10,9 +17,14 @@
 
 .click {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color:darkorange;
+    border: 3px solid black;
+    width: max-content;
+    height: max-content;
+    padding: 0;
 }
 
 .click button{
@@ -24,22 +36,44 @@
     margin-right: 5px;
 }
 
-.name_click{
-    height: max-content;
-    width: 14vw;
-    text-align: right;
-    font-size: 16px;
+.info_click{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    /* background-color: black; */
 }
 
-.img_VC{
+.info_click_img{
     position: relative;
-    top: -20px;
-    zoom: 0.2;
+    zoom: 0.40;
+}
+
+.info_click_text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: -33px 0 0 0;
+    color: green;
+}
+
+.name_click{
+    height: max-content;
+    width: max-content;
+    font-size: 14px;
 }
 
 .time_cooldown{
     height: max-content;
-    width: 16vw;
-    text-align: left;
+    width: max-content;
     font-size: 14px;
+}
+
+.img_VC img{
+    position: relative;
+    zoom: 0.36;
 }

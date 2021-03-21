@@ -22,9 +22,11 @@ export default class App extends Component {
   }
 
   state = {
-    money: 10,
+    money: 100,
     count: 0,
     payment: 0.5,
+    count_VC: 0,
+    max_count_VC: 3,
     masClick: [
     ],
     activeAlert: [],
@@ -61,7 +63,7 @@ export default class App extends Component {
   }
 
   add_click = ({ text, price }) => {
-    const { masClick, money, payment } = this.state;
+    const { masClick, money, payment, count_VC} = this.state;
     const indexClick = this.library_VC.findIndex(item => item.text === text)
     const nClick = this.library_VC.slice(indexClick, indexClick + 1);
     const newClick = Object.assign({}, nClick[0])
@@ -76,14 +78,22 @@ export default class App extends Component {
     this.setState({
       masClick: [...masClick, newClick],
       money: mon,
-      payment: pay
+      payment: pay,
+      count_VC: count_VC + 1
     })
   }
 
   buy_click = ({ text, price }) => {
-    const { money } = this.state;
-    if (money >= price) { this.add_click({ text, price }) }
-    else { this.onAlert('Не хватает') }
+    const { money, count_VC, max_count_VC} = this.state;
+    if (money >= price && count_VC < max_count_VC) {this.add_click({ text, price })}
+    else if(money < price)
+    { 
+      this.onAlert('Не хватает') 
+    }
+    else if(count_VC >= max_count_VC)
+    {
+      this.onAlert('Нет места')
+    }
 
   }
 
