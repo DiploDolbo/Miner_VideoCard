@@ -34,11 +34,9 @@
 }
 .List-click{
   background-color:aliceblue !important;
-  width: 60vw;
 }
 #shop_upgrade{
   background-color: burlywood;
-  width: 40vw;
 }
 
 #tab_s_u{
@@ -51,6 +49,7 @@
 #frames{
   position: relative;
   flex: 1;
+  width: 100vw;
 }
 
 .frame {

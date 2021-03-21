@@ -2,8 +2,9 @@ import React from 'react';
 
 import Shop from '../Shop/Shop';
 import Upgrade from '../Upgrade/Upgrade';
+import Click from '../Click/Click';
 
-const CreateFrame = ({ frame, activeFrame, library_VC, buy_click }) => {
+const CreateFrame = ({ frame, activeFrame, library_VC, buy_click, masClick, onClick, money}) => {
     const elements = frame.map((item, i) => {
         const { nameF } = item;
         const { name } = activeFrame;
@@ -30,6 +31,13 @@ const CreateFrame = ({ frame, activeFrame, library_VC, buy_click }) => {
                 // onAlert={onAlert}
                 ></Upgrade>
                 break;
+            case 'Click':
+                element = <Click
+                    masClick={masClick}
+                    onClick={onClick}
+                    money={money}
+                >
+                </Click>
         }
         return (
             <div

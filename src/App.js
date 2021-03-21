@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import Alert from './components/alert/alert';
 
-import Click from './components/Click/Click';
-import Shop from './components/Shop/Shop';
-
 import Tab from './components/tab/create_tab';
 import Frame from './components/tab/create_frame';
 
@@ -32,14 +29,16 @@ export default class App extends Component {
     ],
     activeAlert: [],
     tab: [
+      { nameWP: "Click", text: "Click" },
       { nameWP: "Shop", text: "Магазин" },
       { nameWP: "Upgrade", text: "Upgrade" }
     ],
     frame: [
+      { nameF: "Click" },
       { nameF: "Shop" },
       { nameF: "Upgrade" }
     ],
-    activeFrame: { name: "Shop" }
+    activeFrame: { name: "Click" }
   }
 
   componentDidMount() {
@@ -122,7 +121,7 @@ export default class App extends Component {
   onSwitch = (nameWP, id_t) => {
     const { name, id } = this.state.activeFrame;
 
-    if (`${nameWP}_tab_${id_t}` == `${name}_tab_${id}`) return;
+    if (`${nameWP}_tab_${id_t}` === `${name}_tab_${id}`) return;
     else {
       this.setState({
         activeFrame: { name: nameWP, id: id_t }
@@ -145,7 +144,7 @@ export default class App extends Component {
         <GamePlace
           masClick={masClick}
           money={money}
-          click={this.click}
+          onClick={this.click}
           buy_click={this.buy_click}
           library_VC={this.library_VC}
           tab={tab}
@@ -158,17 +157,9 @@ export default class App extends Component {
   }
 }
 
-const GamePlace = ({ masClick, money, click, buy_click, library_VC, tab, frame, activeFrame, onSwitch }) => {
+const GamePlace = ({ masClick, money, onClick, buy_click, library_VC, tab, frame, activeFrame, onSwitch }) => {
   return (
     <div className='Game-place'>
-      <div className='List-click'>
-        <p>Намайнил: {money}</p>
-        <Click
-          masClick={masClick}
-          onClick={click}
-          time_1_percent={10}
-        ></Click>
-      </div>
       <div id='shop_upgrade'>
         <div id='tab_s_u'>
           <Tab
@@ -184,6 +175,9 @@ const GamePlace = ({ masClick, money, click, buy_click, library_VC, tab, frame, 
             activeFrame={activeFrame}
             buy_click={buy_click}
             library_VC={library_VC}
+            masClick={masClick}
+            onClick={onClick}
+            money={money}
           >
           </Frame>
 

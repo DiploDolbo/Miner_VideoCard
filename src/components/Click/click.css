@@ -1,6 +1,11 @@
 #list{
+    margin-top: 20px;
     overflow: auto;
-    height: 80vh;
+    height: 100vh;
+}
+
+.List-click a {
+    font-size: 24px;
 }
 
 .click {
@@ -21,9 +26,9 @@
 
 .name_click{
     height: max-content;
-    width: 12vw;
+    width: 14vw;
     text-align: right;
-    font-size: 24px;
+    font-size: 16px;
 }
 
 .img_VC{
@@ -34,7 +39,7 @@
 
 .time_cooldown{
     height: max-content;
-    width: 14vw;
+    width: 16vw;
     text-align: left;
-    font-size: 18px;
+    font-size: 14px;
 }
