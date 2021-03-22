@@ -10,7 +10,7 @@ import info_click_img from '../../img/work/InfoClick.png'
 
 import "./click.css"
 
-const click = ({ masClick, onClick, money }) => {
+const click = ({ masClick, onClick, money, sell_click }) => {
   const element = masClick.map((item) => {
     const { time_1_percent, text, id, plus } = item;
     return (
@@ -20,13 +20,14 @@ const click = ({ masClick, onClick, money }) => {
           text={text}
           onClick={onClick}
           plus={plus}
+          sell_click={sell_click}
+          id={id}
         ></Click>
       </div>
     )
   })
   return (
     <div className='List-click'>
-      <a>Намайнил: {money}</a>
       <div id='list'>
         {element}
       </div>
@@ -74,10 +75,15 @@ class Click extends Component {
     }
   }
 
+  sell = () =>{
+    const {sell_click, id} = this.props;
+    sell_click(id)
+  }
+
   render() {
 
     const { cooldown, can_click } = this.state;
-    const { time_1_percent, text, plus } = this.props
+    const { time_1_percent, text, plus} = this.props
     let img;
     if (can_click) { img = gt730_notwork; }
     else { img = gt730_work }
@@ -91,6 +97,7 @@ class Click extends Component {
           </div>
         </div>
         <div className="img_VC" onClick={() => { this.click(plus) }}><img src={img} alt={'logo'}></img></div>
+        <button className="sell_click" onClick={this.sell}>Sell</button>
         {/* <progress max="100" value={cooldown}></progress> */}
 
       </>

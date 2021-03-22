@@ -5,7 +5,7 @@
 .Shop button{
     height: max-content;
     width: 200px;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .shop_item{
@@ -17,6 +17,7 @@
 .shop_item a{
     text-align: left;
     width: 120px;
+    font-size: 20px;
 }
 .shop_item > * {
     margin: 5px 5px 5px 5px;

@@ -36,6 +36,10 @@
   background-color: burlywood;
 }
 
+#money{
+  font-size: 24px;
+}
+
 #tab_s_u{
   display: flex;
   flex-direction: row;

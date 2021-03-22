@@ -4,7 +4,7 @@ import Shop from '../Shop/Shop';
 import Upgrade from '../Upgrade/Upgrade';
 import Click from '../Click/Click';
 
-const CreateFrame = ({ frame, activeFrame, library_VC, buy_click, masClick, onClick, money}) => {
+const CreateFrame = ({ frame, activeFrame, library_VC, buy_click, sell_click, masClick, onClick, money}) => {
     const elements = frame.map((item, i) => {
         const { nameF } = item;
         const { name } = activeFrame;
@@ -36,6 +36,7 @@ const CreateFrame = ({ frame, activeFrame, library_VC, buy_click, masClick, onCl
                     masClick={masClick}
                     onClick={onClick}
                     money={money}
+                    sell_click={sell_click}
                 >
                 </Click>
         }

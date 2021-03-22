@@ -67,10 +67,10 @@ export default class App extends Component {
     const indexClick = this.library_VC.findIndex(item => item.text === text)
     const nClick = this.library_VC.slice(indexClick, indexClick + 1);
     const newClick = Object.assign({}, nClick[0])
-    const moneyClick = masClick.filter(item => {
-      return item.text === text
-    })
-    newClick.id = moneyClick.length;
+    // const moneyClick = masClick.filter(item => {
+    //   return item.text === text
+    // })
+    newClick.id = masClick.length;
     let pay = (+payment + price * 0.1).toFixed(1);
     let mon = (+money - price).toFixed(1)
 
@@ -94,6 +94,19 @@ export default class App extends Component {
     {
       this.onAlert('Нет места')
     }
+  }
+
+  sell_click = (id) => {
+    const {masClick, money, count_VC} = this.state;
+    const sellClick = masClick.find(item => {return item.id === id})
+    const index = masClick.findIndex((item) => {return item.id === id})
+    const newMasClick = [...masClick.slice(0, index), ...masClick.slice(index+1)]
+    let mon = (+money + sellClick.price * 0.9).toFixed(1);
+    this.setState({
+      money: mon,
+      masClick: newMasClick,
+      count_VC: count_VC - 1
+    })
 
   }
 
@@ -156,6 +169,7 @@ export default class App extends Component {
           money={money}
           onClick={this.click}
           buy_click={this.buy_click}
+          sell_click={this.sell_click}
           library_VC={this.library_VC}
           tab={tab}
           frame={frame}
@@ -167,7 +181,7 @@ export default class App extends Component {
   }
 }
 
-const GamePlace = ({ masClick, money, onClick, buy_click, library_VC, tab, frame, activeFrame, onSwitch }) => {
+const GamePlace = ({ masClick, money, onClick, buy_click, sell_click, library_VC, tab, frame, activeFrame, onSwitch }) => {
   return (
     <div className='Game-place'>
       <div id='shop_upgrade'>
@@ -179,11 +193,13 @@ const GamePlace = ({ masClick, money, onClick, buy_click, library_VC, tab, frame
           >
           </Tab>
         </div>
+        <a id = 'money'>Намайнил: {money}</a>
         <div id='frames'>
           <Frame
             frame={frame}
             activeFrame={activeFrame}
             buy_click={buy_click}
+            sell_click={sell_click}
             library_VC={library_VC}
             masClick={masClick}
             onClick={onClick}
@@ -193,7 +209,6 @@ const GamePlace = ({ masClick, money, onClick, buy_click, library_VC, tab, frame
 
         </div>
       </div>
-
     </div>
   )
 }

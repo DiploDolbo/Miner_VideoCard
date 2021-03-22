@@ -11,10 +11,6 @@
 }
 
 
-.List-click a {
-    font-size: 24px;
-}
-
 .click {
     display: flex;
     flex-direction: column;
