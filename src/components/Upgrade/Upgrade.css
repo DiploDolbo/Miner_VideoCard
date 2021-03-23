@@ -1,0 +1,24 @@
+.Upgrade {
+    overflow: auto;
+}
+
+.Upgrade button{
+    height: max-content;
+    width: 200px;
+    font-size: 20px;
+}
+
+.upgrade_item{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.upgrade_item a{
+    text-align: left;
+    width: 120px;
+    font-size: 20px;
+}
+.upgrade_item > * {
+    margin: 5px 5px 5px 5px;
+}
