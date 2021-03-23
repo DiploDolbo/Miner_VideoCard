@@ -16,11 +16,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color:darkorange;
-    border: 3px solid black;
-    width: max-content;
-    height: max-content;
+    /* background-color:darkorange; */
+    /* border: 3px solid black; */
+    width: 133px;
+    height: 133px;
     padding: 0;
+    background-image: url('../../img/work/box.png');
 }
 
 .click button{
@@ -53,7 +54,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin: -33px 0 0 0;
+    /* margin: -33px 0 0 0; */
     color: green;
 }
 
@@ -72,4 +73,8 @@
 .img_VC img{
     position: relative;
     zoom: 0.36;
+}
+
+.sell_click{
+    margin-top: -2px;
 }

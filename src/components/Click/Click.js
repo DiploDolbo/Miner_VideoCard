@@ -10,7 +10,7 @@ import info_click_img from '../../img/work/InfoClick.png'
 
 import "./click.css"
 
-const click = ({ masClick, onClick, money, sell_click }) => {
+const click = ({ masClick, onClick, money, sell_click, auto_click }) => {
   const element = masClick.map((item) => {
     const { time_1_percent, text, id, plus } = item;
     return (
@@ -22,6 +22,7 @@ const click = ({ masClick, onClick, money, sell_click }) => {
           plus={plus}
           sell_click={sell_click}
           id={id}
+          auto_click={auto_click}
         ></Click>
       </div>
     )
@@ -42,6 +43,14 @@ class Click extends Component {
   state = {
     cooldown: 0,
     can_click: true,
+  }
+
+  componentDidUpdate(){
+    const{can, time} = this.props.auto_click;
+    if(can && this.state.can_click)
+    {
+      const auto = setTimeout(() => {this.click(this.props.plus)}, time*1000)
+    }
   }
 
   click = (plus) => {
@@ -90,7 +99,7 @@ class Click extends Component {
     return (
       <>
         <div className="info_click">
-          <img className="info_click_img" alt={'logo'} src={info_click_img}></img>
+          {/* <img className="info_click_img" alt={'logo'} src={info_click_img}></img> */}
           <div className="info_click_text">
             <div className='name_click'>{text}</div>
             <div className="time_cooldown">{(time_1_percent / 10 - cooldown * time_1_percent / 1000).toFixed(2)} сек</div>
