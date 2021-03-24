@@ -20,7 +20,8 @@ export default class App extends Component {
         { time_1_percent: 0.5, text: 'GT760', plus: 2, price: 16 }
       ];
     this.upgrade_VC = [
-      { time_auto_click: 0.5, text: 'Помощь братана', func: () => this.autoClick(2, 100), price: 100 }
+      { buy: true, properties: 0.5, text: 'Помощь братана', func: this.autoClick, price: 100 },
+      { buy: true, properties: 1, text: "Освободить место", func: this.plus_count_VC, price: 200 }
     ]
   }
 
@@ -48,13 +49,29 @@ export default class App extends Component {
   }
 
   autoClick = (time, price) => {
+    const { money, payment} = this.state;
+    if (money >= price) {
+      this.upgrade_VC[0].buy = false;
+      let mon = (+money - price).toFixed(1);
+      this.setState({
+        money: mon,
+        payment: +payment + price * 0.1,
+        auto_click: { can: true, time: time },
+      })
+    }
+    else if (money < price) {
+      this.onAlert('Не хватает')
+    }
+  }
+
+  plus_count_VC = (count, price) => {
     const { money, payment } = this.state;
     if (money >= price) {
       let mon = (+money - price).toFixed(1);
       this.setState({
         money: mon,
-        payment: +payment + price*0.1,
-        auto_click: { can: true, time: time }
+        payment: +payment + price * 0.1,
+        max_count_VC: this.state.max_count_VC + count
       })
     }
     else if (money < price) {
@@ -170,7 +187,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { money, masClick, activeAlert, tab, frame, activeFrame, auto_click } = this.state;
+    const { money, masClick, activeAlert, tab, frame, activeFrame, auto_click, count_VC, max_count_VC } = this.state;
     return (
       <div className='App'>
         <div className='App-header'>
@@ -194,6 +211,8 @@ export default class App extends Component {
           frame={frame}
           activeFrame={activeFrame}
           onSwitch={this.onSwitch}
+          count_VC={count_VC}
+          max_count_VC={max_count_VC}
         ></GamePlace>
       </div>
     )
@@ -201,7 +220,9 @@ export default class App extends Component {
 }
 
 const GamePlace = ({
-  masClick, money, onClick, buy_click, sell_click, library_VC, upgrade_VC, auto_click, tab, frame, activeFrame, onSwitch
+  masClick, money, onClick, buy_click, sell_click,
+  library_VC, upgrade_VC, auto_click, tab, frame,
+  activeFrame, onSwitch, max_count_VC, count_VC
 }) => {
   return (
     <div className='Game-place'>
@@ -214,7 +235,10 @@ const GamePlace = ({
           >
           </Tab>
         </div>
-        <a id='money'>Намайнил: {money}</a>
+        <div id = "game_info">
+          <a>Намайнил: {money}</a>
+          <a>Видюх: {count_VC}/{max_count_VC} </a>
+        </div>
         <div id='frames'>
           <Frame
             frame={frame}

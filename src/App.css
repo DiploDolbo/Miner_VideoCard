@@ -36,7 +36,9 @@
   background-color: burlywood;
 }
 
-#money{
+#game_info{
+  display: flex;
+  flex-direction: column;
   font-size: 24px;
 }
 
