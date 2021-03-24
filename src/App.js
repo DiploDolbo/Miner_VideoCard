@@ -15,12 +15,13 @@ export default class App extends Component {
     this.time_payment = 20;
     this.library_VC =
       [
-        { time_1_percent: 1, text: 'GT 730', plus: 1, price: 5 },
-        { time_1_percent: 0.8, text: 'GT 750', plus: 1.5, price: 8 },
-        { time_1_percent: 0.5, text: 'GT 760', plus: 2, price: 16 }
+        { time_1_percent: 1, text: 'GT730', plus: 1, price: 5 },
+        { time_1_percent: 0.8, text: 'GT750', plus: 1.5, price: 8 },
+        { time_1_percent: 0.5, text: 'GT760', plus: 2, price: 16 }
       ];
     this.upgrade_VC = [
-      { time_auto_click: 0.5, text: 'Помощь братана', func: () => this.autoClick(2, 100), price: 100 }
+      { buy: true, properties: 0.5, text: 'Помощь братана', func: this.autoClick, price: 100 },
+      { buy: true, properties: 1, text: "Освободить место", func: this.plus_count_VC, price: 200 }
     ]
   }
 
@@ -48,11 +49,29 @@ export default class App extends Component {
   }
 
   autoClick = (time, price) => {
-    const { money } = this.state;
+    const { money, payment} = this.state;
     if (money >= price) {
+      this.upgrade_VC[0].buy = false;
+      let mon = (+money - price).toFixed(1);
       this.setState({
-        money: money - price,
-        auto_click: { can: true, time: time }
+        money: mon,
+        payment: +payment + price * 0.1,
+        auto_click: { can: true, time: time },
+      })
+    }
+    else if (money < price) {
+      this.onAlert('Не хватает')
+    }
+  }
+
+  plus_count_VC = (count, price) => {
+    const { money, payment } = this.state;
+    if (money >= price) {
+      let mon = (+money - price).toFixed(1);
+      this.setState({
+        money: mon,
+        payment: +payment + price * 0.1,
+        max_count_VC: this.state.max_count_VC + count
       })
     }
     else if (money < price) {
@@ -61,7 +80,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.add_click({ text: 'GT 730', price: 0 })
+    this.add_click({ text: 'GT730', price: 0 })
   }
 
   click = (plus) => {
@@ -83,10 +102,10 @@ export default class App extends Component {
     const indexClick = this.library_VC.findIndex(item => item.text === text)
     const nClick = this.library_VC.slice(indexClick, indexClick + 1);
     const newClick = Object.assign({}, nClick[0])
-    // const moneyClick = masClick.filter(item => {
-    //   return item.text === text
-    // })
-    newClick.id = masClick.length;
+    const copyClick = masClick.filter(item => {
+      return item.text === text
+    })
+    newClick.id = copyClick.length;
     let pay = (+payment + price * 0.1).toFixed(1);
     let mon = (+money - price).toFixed(1)
 
@@ -110,14 +129,13 @@ export default class App extends Component {
     }
   }
 
-  sell_click = (id) => {
+  sell_click = (text, id) => {
     const question = window.confirm('Видюху продаж?')
     if (question) {
       const { masClick, money, count_VC } = this.state;
-      const sellClick = masClick.find(item => { return item.id === id })
-      const index = masClick.findIndex((item) => { return item.id === id })
+      const index = masClick.findIndex((item) => { return item.id === id && item.text === text })
       const newMasClick = [...masClick.slice(0, index), ...masClick.slice(index + 1)]
-      let mon = (+money + sellClick.price * 0.9).toFixed(1);
+      let mon = (+money + masClick[index].price * 0.9).toFixed(1);
       this.setState({
         money: mon,
         masClick: newMasClick,
@@ -169,7 +187,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { money, masClick, activeAlert, tab, frame, activeFrame, auto_click } = this.state;
+    const { money, masClick, activeAlert, tab, frame, activeFrame, auto_click, count_VC, max_count_VC } = this.state;
     return (
       <div className='App'>
         <div className='App-header'>
@@ -193,6 +211,8 @@ export default class App extends Component {
           frame={frame}
           activeFrame={activeFrame}
           onSwitch={this.onSwitch}
+          count_VC={count_VC}
+          max_count_VC={max_count_VC}
         ></GamePlace>
       </div>
     )
@@ -200,7 +220,9 @@ export default class App extends Component {
 }
 
 const GamePlace = ({
-  masClick, money, onClick, buy_click, sell_click, library_VC, upgrade_VC, auto_click, tab, frame, activeFrame, onSwitch
+  masClick, money, onClick, buy_click, sell_click,
+  library_VC, upgrade_VC, auto_click, tab, frame,
+  activeFrame, onSwitch, max_count_VC, count_VC
 }) => {
   return (
     <div className='Game-place'>
@@ -213,7 +235,10 @@ const GamePlace = ({
           >
           </Tab>
         </div>
-        <a id='money'>Намайнил: {money}</a>
+        <div id = "game_info">
+          <a>Намайнил: {money}</a>
+          <a>Видюх: {count_VC}/{max_count_VC} </a>
+        </div>
         <div id='frames'>
           <Frame
             frame={frame}

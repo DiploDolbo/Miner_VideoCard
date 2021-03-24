@@ -16,9 +16,12 @@
 }
 .upgrade_item a{
     text-align: left;
-    width: 120px;
+    width: 160px;
     font-size: 20px;
 }
 .upgrade_item > * {
     margin: 5px 5px 5px 5px;
+}
+.buy{
+    background-color: gray;
 }

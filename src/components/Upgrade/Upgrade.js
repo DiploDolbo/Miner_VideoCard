@@ -1,31 +1,29 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import "./Upgrade.css"
-// export default class Upgrade extends Component{
-    
-//     render(){
-//         const {upgrade_VC} = this.props;
-//         return(
-//             <h1>Coming soon</h1>
-//         )
-//     }
-// }
 
-const Upgrade = ({upgrade_VC}) => {
-    
+const Upgrade = ({ upgrade_VC }) => {
+
     const element = upgrade_VC.map((item, i) => {
-        const {text, price, func} = item;
-        return(
-            <div key = {`upgrade_${i}`} className = {'upgrade_item'}>
-                <button onClick = {func}>{text}</button>
-                <a>Стоит: {price}</a>
+        const { buy, text, price, func, properties } = item;
+        let classN = '', info_upgrade = `Стоит: ${price}`, click = () => func(properties, price);
+        if(!buy) 
+        {
+            classN = 'buy';
+            info_upgrade = 'Куплено';
+            click = () => {};
+        }
+        return (
+            <div key={`upgrade_${i}`} className={`upgrade_item ${classN}`}>
+                <button onClick={click}>{text}</button>
+                <a>{info_upgrade}</a>
             </div>
         )
     })
 
-    return(
-        <div className = "Upgrade">
-            <div id = "upgrade_list">
+    return (
+        <div className="Upgrade">
+            <div id="upgrade_list">
                 {element}
             </div>
         </div>
