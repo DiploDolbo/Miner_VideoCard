@@ -15,9 +15,9 @@ export default class App extends Component {
     this.time_payment = 20;
     this.library_VC =
       [
-        { time_1_percent: 1, text: 'GT730', plus: 1, price: 5 },
-        { time_1_percent: 0.8, text: 'GT750', plus: 1.5, price: 8 },
-        { time_1_percent: 0.5, text: 'GT760', plus: 2, price: 16 }
+        { time_1_percent: 1, text: 'GT730', plus: 1, price: 5 , voltage: 1},
+        { time_1_percent: 0.8, text: 'GT750', plus: 1.5, price: 8, voltage: 2},
+        { time_1_percent: 0.5, text: 'GT760', plus: 2, price: 16, voltage: 3}
       ];
     this.upgrade_VC = [
       { buy: true, properties: 0.5, text: 'Помощь братана', func: this.autoClick, price: 100 },
@@ -31,6 +31,8 @@ export default class App extends Component {
     payment: 0.5,
     count_VC: 0,
     max_count_VC: 3,
+    voltage_VC: 0,
+    max_voltage_VC: 10,
     auto_click: { can: false, time: 0 },
     masClick: [
     ],
@@ -70,7 +72,7 @@ export default class App extends Component {
       let mon = (+money - price).toFixed(1);
       this.setState({
         money: mon,
-        payment: +payment + price * 0.1,
+        payment: +payment + price * 0.05,
         max_count_VC: this.state.max_count_VC + count
       })
     }
@@ -84,7 +86,7 @@ export default class App extends Component {
   }
 
   click = (plus) => {
-    const { money, count, payment } = this.state;
+    const { money, count, payment} = this.state;
 
     let mon = (+money + plus).toFixed(1);
     if (count % this.time_payment === 0 && count !== 0) {
@@ -93,12 +95,25 @@ export default class App extends Component {
     }
     this.setState({
       money: mon,
-      count: count + 1
+      count: count + 1,
+    })
+  }
+
+  up_voltage = (voltage, can_click) => {
+    let volt;
+    if(can_click){
+      volt = this.state.voltage_VC + voltage;
+    }
+    else{
+      volt = this.state.voltage_VC - voltage;
+    }
+    this.setState({
+      voltage_VC: volt
     })
   }
 
   add_click = ({ text, price }) => {
-    const { masClick, money, payment, count_VC } = this.state;
+    const { masClick, money, payment, count_VC, voltage_VC } = this.state;
     const indexClick = this.library_VC.findIndex(item => item.text === text)
     const nClick = this.library_VC.slice(indexClick, indexClick + 1);
     const newClick = Object.assign({}, nClick[0])
@@ -114,7 +129,8 @@ export default class App extends Component {
       masClick: [...masClick, newClick],
       money: mon,
       payment: pay,
-      count_VC: count_VC + 1
+      count_VC: count_VC + 1,
+      voltage_VC: voltage_VC + newClick.voltage
     })
   }
 
@@ -132,14 +148,18 @@ export default class App extends Component {
   sell_click = (text, id) => {
     const question = window.confirm('Видюху продаж?')
     if (question) {
-      const { masClick, money, count_VC } = this.state;
+      const { masClick, money, count_VC, payment, voltage_VC} = this.state;
       const index = masClick.findIndex((item) => { return item.id === id && item.text === text })
       const newMasClick = [...masClick.slice(0, index), ...masClick.slice(index + 1)]
-      let mon = (+money + masClick[index].price * 0.9).toFixed(1);
+      const price = masClick[index].price;
+      const pay = (+payment - price * 0.1).toFixed(1);
+      let mon = (+money + price * 0.9).toFixed(1);
       this.setState({
         money: mon,
         masClick: newMasClick,
-        count_VC: count_VC - 1
+        count_VC: count_VC - 1,
+        payment: pay,
+        voltage_VC: voltage_VC - masClick[index].voltage
       })
     }
   }
@@ -187,7 +207,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { money, masClick, activeAlert, tab, frame, activeFrame, auto_click, count_VC, max_count_VC } = this.state;
+    const { money, masClick, activeAlert, tab, frame, activeFrame, auto_click, count_VC, max_count_VC, voltage_VC, max_voltage_VC } = this.state;
     return (
       <div className='App'>
         <div className='App-header'>
@@ -213,6 +233,9 @@ export default class App extends Component {
           onSwitch={this.onSwitch}
           count_VC={count_VC}
           max_count_VC={max_count_VC}
+          up_voltage={this.up_voltage}
+          voltage_VC={voltage_VC}
+          max_voltage_VC={max_voltage_VC}
         ></GamePlace>
       </div>
     )
@@ -222,7 +245,8 @@ export default class App extends Component {
 const GamePlace = ({
   masClick, money, onClick, buy_click, sell_click,
   library_VC, upgrade_VC, auto_click, tab, frame,
-  activeFrame, onSwitch, max_count_VC, count_VC
+  activeFrame, onSwitch, max_count_VC, count_VC,
+  up_voltage, max_voltage_VC, voltage_VC
 }) => {
   return (
     <div className='Game-place'>
@@ -238,6 +262,7 @@ const GamePlace = ({
         <div id = "game_info">
           <a>Намайнил: {money}</a>
           <a>Видюх: {count_VC}/{max_count_VC} </a>
+          <a>БП: {voltage_VC}/{max_voltage_VC} </a>
         </div>
         <div id='frames'>
           <Frame
@@ -250,6 +275,7 @@ const GamePlace = ({
             auto_click={auto_click}
             masClick={masClick}
             onClick={onClick}
+            up_voltage={up_voltage}
             money={money}
           >
           </Frame>
