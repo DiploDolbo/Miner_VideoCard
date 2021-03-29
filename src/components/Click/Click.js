@@ -61,6 +61,12 @@ const click = ({ masClick, onClick, money, sell_click, auto_click, up_voltage })
 
 class Click extends Component {
 
+  constructor(props){
+    super(props);
+    this.setTime = 0;
+    this.time = 0;
+  }
+
   state = {
     cooldown: 0,
     can_click: true,
@@ -80,6 +86,7 @@ class Click extends Component {
 
   componentWillUnmount(){
     clearTimeout(this.setTime);
+    clearInterval(this.time);
   }
 
   click = (plus, voltage) => {
@@ -89,8 +96,8 @@ class Click extends Component {
   }
   start_cooldown = (plus, voltage) => {
     const { time_1_percent} = this.props;
-    this.props.up_voltage(voltage, this.state.can_click);
-    this.time = setInterval(() => this.plus_cooldown(plus, voltage), time_1_percent)
+    this.props.up_voltage(voltage, this.state.can_click, this.props.id);
+    this.time = setInterval(() => this.plus_cooldown(plus, voltage), time_1_percent * 10)
   }
 
   plus_cooldown = (plus, voltage) => {
@@ -104,7 +111,7 @@ class Click extends Component {
     else {
       clearInterval(this.time);
       this.props.onClick(plus);
-      this.props.up_voltage(voltage, this.state.can_click);
+      this.props.up_voltage(voltage, this.state.can_click, this.props.id);
       this.auto_click();
       this.setState({
         can_click: true,
@@ -131,7 +138,7 @@ class Click extends Component {
           {/* <img className="info_click_img" alt={'logo'} src={info_click_img}></img> */}
           <div className="info_click_text">
             <div className='name_click'>{text}</div>
-            <div className="time_cooldown">{(time_1_percent / 10 - cooldown * time_1_percent / 1000).toFixed(2)} сек</div>
+            <div className="time_cooldown">{(time_1_percent - cooldown * time_1_percent / 100).toFixed(2)} сек</div>
           </div>
           <div className="img_VC" onClick={() => { this.click(plus, voltage) }}><img src={img} alt={'logo'}></img></div>
           <button className="sell_click" onClick={this.sell}>Sell</button>

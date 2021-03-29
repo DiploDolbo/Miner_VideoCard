@@ -15,9 +15,9 @@ export default class App extends Component {
     this.time_payment = 20;
     this.library_VC =
       [
-        { time_1_percent: 1, text: 'GT730', plus: 1, price: 5 , voltage: 1},
-        { time_1_percent: 0.8, text: 'GT750', plus: 1.5, price: 8, voltage: 2},
-        { time_1_percent: 0.5, text: 'GT760', plus: 2, price: 16, voltage: 3}
+        { time_1_percent: 4.8, text: 'GT730', plus: 1, price: 5 , voltage: 1},
+        { time_1_percent: 4.8, text: 'GT750', plus: 1.5, price: 8, voltage: 2},
+        { time_1_percent: 4.8, text: 'GT760', plus: 2, price: 16, voltage: 3}
       ];
     this.upgrade_VC = [
       { buy: true, properties: 0.5, text: 'Помощь братана', func: this.autoClick, price: 100 },
@@ -99,15 +99,22 @@ export default class App extends Component {
     })
   }
 
-  up_voltage = (voltage, can_click) => {
+  up_voltage = (voltage, can_click, id) => {
     let volt;
+    // const indexClick = this.props.masClick.findIndex(item => item.id = id)
+    const fClick = this.state.masClick.slice(0, id);
+    const sClick = this.state.masClick.slice(id + 1);
+    let click = Object.assign({}, this.state.masClick[id]);
     if(can_click){
       volt = this.state.voltage_VC + voltage;
+      click.work = 'true';
     }
     else{
       volt = this.state.voltage_VC - voltage;
+      click.work = 'false';
     }
     this.setState({
+      // masClick: [...fClick, click, ...sClick],
       voltage_VC: volt
     })
   }
@@ -116,11 +123,12 @@ export default class App extends Component {
     const { masClick, money, payment, count_VC, voltage_VC } = this.state;
     const indexClick = this.library_VC.findIndex(item => item.text === text)
     const nClick = this.library_VC.slice(indexClick, indexClick + 1);
-    const newClick = Object.assign({}, nClick[0])
+    const newClick = Object.assign({}, nClick[0]);
     const copyClick = masClick.filter(item => {
       return item.text === text
     })
     newClick.id = copyClick.length;
+    newClick.work = 'false';
     let pay = (+payment + price * 0.1).toFixed(1);
     let mon = (+money - price).toFixed(1)
 
@@ -154,12 +162,15 @@ export default class App extends Component {
       const price = masClick[index].price;
       const pay = (+payment - price * 0.1).toFixed(1);
       let mon = (+money + price * 0.9).toFixed(1);
+      let volt;
+      if(masClick[index].work) volt = masClick[index].voltage * 2;
+      else volt = masClick[index].voltage;
       this.setState({
         money: mon,
         masClick: newMasClick,
         count_VC: count_VC - 1,
         payment: pay,
-        voltage_VC: voltage_VC - masClick[index].voltage
+        voltage_VC: voltage_VC - volt
       })
     }
   }
