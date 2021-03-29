@@ -21,6 +21,4 @@ const Shop = ({ buy_click, library_VC }) => {
     )
 }
 
-
-
 export default Shop;

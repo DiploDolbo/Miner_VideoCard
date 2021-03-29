@@ -34,12 +34,25 @@
 }
 #shop_upgrade{
   background-color: burlywood;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #game_info{
   display: flex;
   flex-direction: column;
+  align-items: center;
+  height: 133px;
+  width: 300px;
   font-size: 24px;
+  background-image: url('../src/img/work/status.png');
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+#game_info > :first-child{
+  margin-top: 30px;
 }
 
 #tab_s_u{

@@ -26,24 +26,25 @@ const click = ({ masClick, onClick, money, sell_click, auto_click, up_voltage })
     GT760_work: gt760_work,
   }
   const element = masClick.map((item, i) => {
-    const { time_1_percent, text, id, plus, voltage } = item;
+    const { time_1_percent, text, id, plus, voltage, working} = item;
     const notwork = mas_VC[`${text}_notwork`];
     const work = mas_VC[`${text}_work`]
 
     return (
-      <div className='click' key={`${text}_${i}`}>
+      <div className='click' key={`${text}_${id}`}>
         <Click
           time_1_percent={time_1_percent}
           text={text}
           onClick={onClick}
           plus={plus}
           sell_click={sell_click}
-          id={id}
+          index={i}
           auto_click={auto_click}
           notwork={notwork}
           work={work}
           voltage={voltage}
           up_voltage={up_voltage}
+          working={working}
         ></Click>
       </div>
     )
@@ -54,83 +55,82 @@ const click = ({ masClick, onClick, money, sell_click, auto_click, up_voltage })
         {element}
       </div>
     </div>
-
   )
-
 }
 
 class Click extends Component {
 
   constructor(props){
-    super(props);
-    this.setTime = 0;
-    this.time = 0;
+    super(props)
+    this.time_auto_click = 0;
+    this.time_interval_cooldown = 0;
   }
 
   state = {
     cooldown: 0,
-    can_click: true,
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.auto_click();
   }
 
-  auto_click = () => {
-    if(this.props.auto_click.can)
-    {
-      this.setTime = setTimeout(() => this.click(this.props.plus, this.props.voltage), this.props.auto_click.time * 1000)
-    }
-
+  componentWillUnmount(){
+    clearInterval(this.time_auto_click)
+    clearTimeout(this.time_interval_cooldown)
   }
 
-  componentWillUnmount(){
-    clearTimeout(this.setTime);
-    clearInterval(this.time);
+  auto_click = () => {
+    if (this.props.auto_click.can) {
+      this.time_auto_click = setTimeout(() => this.click(this.props.plus, this.props.voltage), this.props.auto_click.time * 1000)
+    }
   }
 
   click = (plus, voltage) => {
-    if (this.state.can_click) {
+    if (!this.props.working) {
       this.start_cooldown(plus, voltage)
     }
   }
   start_cooldown = (plus, voltage) => {
-    const { time_1_percent} = this.props;
-    this.props.up_voltage(voltage, this.state.can_click, this.props.id);
-    this.time = setInterval(() => this.plus_cooldown(plus, voltage), time_1_percent * 10)
+    const { time_1_percent, working, index, text } = this.props;
+    this.props.up_voltage(voltage, working, index, text);
+    this.time_interval_cooldown = setInterval(() => this.plus_cooldown(plus, voltage), time_1_percent * 10)
   }
 
   plus_cooldown = (plus, voltage) => {
     const { cooldown } = this.state;
+    const { working, index, text} = this.props
     if (cooldown !== 100) {
       this.setState({
-        can_click: false,
         cooldown: cooldown + 1
       })
     }
     else {
-      clearInterval(this.time);
+      clearInterval(this.time_interval_cooldown);
       this.props.onClick(plus);
-      this.props.up_voltage(voltage, this.state.can_click, this.props.id);
+      this.props.up_voltage(voltage, working, index, text);
       this.auto_click();
       this.setState({
-        can_click: true,
         cooldown: 0
       })
     }
   }
 
   sell = () => {
-    const { sell_click, id, text} = this.props;
-    sell_click(text ,id)
+    const question = window.confirm('Видюху продаж?')
+    if (question) {
+      const { sell_click, index} = this.props;
+      clearTimeout(this.time_auto_click);
+      clearInterval(this.time_interval_cooldown);
+      sell_click(index, this.props.working)
+    }
   }
 
   render() {
 
-    const { cooldown, can_click } = this.state;
-    const { time_1_percent, text, plus, notwork, work, voltage } = this.props
+    const { cooldown} = this.state;
+    const { time_1_percent, text, plus, notwork, work, voltage, working} = this.props
     let img;
-    if (can_click) { img = notwork; }
+    if (!working) { img = notwork; }
     else { img = work }
     return (
       <>
