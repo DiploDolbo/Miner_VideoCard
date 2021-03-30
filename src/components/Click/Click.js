@@ -15,7 +15,9 @@ import gt760_work from '../../img/work/Watercard_work.gif';
 
 import "./click.css"
 
-const click = ({ masClick, onClick, money, sell_click, auto_click, up_voltage }) => {
+const click = (
+  { masClick, onClick, money, sell_click, auto_click, up_voltage, voltage_VC, max_voltage_VC, onAlert}
+  ) => {
   const mas_VC =
   {
     GT730_notwork: gt730_notwork,
@@ -45,6 +47,9 @@ const click = ({ masClick, onClick, money, sell_click, auto_click, up_voltage })
           voltage={voltage}
           up_voltage={up_voltage}
           working={working}
+          voltage_VC={voltage_VC}
+          max_voltage_VC={max_voltage_VC}
+          onAlert={onAlert}
         ></Click>
       </div>
     )
@@ -86,8 +91,13 @@ class Click extends Component {
   }
 
   click = (plus, voltage) => {
-    if (!this.props.working) {
+    const{voltage_VC, max_voltage_VC} = this.props;
+
+    if (!this.props.working && voltage_VC + voltage <= max_voltage_VC) {
       this.start_cooldown(plus, voltage)
+    }
+    else{
+      this.props.onAlert('БП не потянет')
     }
   }
   start_cooldown = (plus, voltage) => {

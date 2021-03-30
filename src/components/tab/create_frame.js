@@ -7,6 +7,7 @@ import Click from '../Click/Click';
 const CreateFrame = ({
      frame, activeFrame, library_VC, upgrade_VC, auto_click,
     buy_click, sell_click, masClick, onClick, money, up_voltage,
+    voltage_VC, max_voltage_VC, onAlert
     }) => {
     const elements = frame.map((item, i) => {
         const { nameF } = item;
@@ -42,6 +43,9 @@ const CreateFrame = ({
                     sell_click={sell_click}
                     auto_click={auto_click}
                     up_voltage={up_voltage}
+                    voltage_VC={voltage_VC}
+                    max_voltage_VC={max_voltage_VC}
+                    onAlert={onAlert}
                 >
                 </Click>
         }
