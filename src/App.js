@@ -32,7 +32,7 @@ export default class App extends Component {
     money: 300,
     spentWatts: 0,
     count: 0,
-    payment: 0.5,
+    payment: 0,
     count_VC: 0,
     max_count_VC: 3,
     voltage_VC: 0,
@@ -73,8 +73,9 @@ export default class App extends Component {
 
   spentWattsFunction = () => {
     const {spentWatts, voltage_VC} = this.state;
+    let pay = +(spentWatts + voltage_VC * this.coef_watts).toFixed(1)
     this.setState({
-      spentWatts: +(spentWatts + voltage_VC * this.coef_watts).toFixed(1)
+      spentWatts: pay
     })
 
   }
