@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Alert from './components/alert/alert';
 
 import Tab from './components/tab/create_tab';
@@ -6,7 +6,7 @@ import Frame from './components/tab/create_frame';
 
 import './App.css';
 
-export default class App extends Component {
+export default class App extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -40,7 +40,7 @@ export default class App extends Component {
     auto_click: { can: false, time: 0 },
     masClick: [
     ],
-    activeAlert: [],
+    activeAlert: {},
     tab: [
       { nameWP: "Click", text: "Click" },
       { nameWP: "Shop", text: "Магазин" },
@@ -64,8 +64,9 @@ export default class App extends Component {
     const {money, payment, spentWatts} = this.state;
     let pay = spentWatts + payment;
     let mon = (+money - pay).toFixed(1);
-      this.onAlert(`ПЛАТИ НАЛОГИ ${pay}!`)
-      this.setState({
+    this.onAlert(`ПЛАТИ НАЛОГИ ${pay}!`)
+    console.log(pay)
+    this.setState({
         money: mon,
         spentWatts: 0
       })
@@ -179,13 +180,13 @@ export default class App extends Component {
 
   buy_click = ({ text, price, voltage }) => {
     const { money, count_VC, max_count_VC, voltage_VC, max_voltage_VC} = this.state;
-    if (money >= price && count_VC < max_count_VC && voltage_VC < max_voltage_VC ) { this.add_click({ text, price }) }
+    if (money >= price && count_VC < max_count_VC ) { this.add_click({ text, price }) }
     else if (money < price) {
       this.onAlert('Не хватает')
     }
-    else if (voltage_VC >= max_voltage_VC){
-      this.onAlert('БП не потянет')
-    }
+    // else if (voltage_VC >= max_voltage_VC){
+    //   this.onAlert('БП не потянет')
+    // }
     else if (count_VC >= max_count_VC) {
       this.onAlert('Нет места')
     }
@@ -210,34 +211,16 @@ export default class App extends Component {
   }
 
   onAlert = (message) => {
-    this.setState(({ activeAlert }) => {
-      let id;
-      if (activeAlert.length === 0) {
-        id = 0;
-      }
-      else {
-        id = activeAlert[activeAlert.length - 1].id + 1;
-      }
-      const before = activeAlert;
-      const newAlert = { text: message, id: id };
-      const newM = [...before, newAlert];
-      return {
-        activeAlert: newM
-      }
-    })
+    const newAlert = { text: message, id: 0 };
+    this.setState({
+        activeAlert: newAlert
+      })
   }
 
-  closeAlert = (id) => {
-    this.setState(({ activeAlert }) => {
-      const index = activeAlert.findIndex((item) => item.id === id)
-      const before = activeAlert.slice(0, index);
-      const after = activeAlert.slice(index + 1);
-      const neew = [...before, ...after];
-
-      return {
-        activeAlert: neew
-      }
-    })
+  closeAlert = () => {
+    this.setState({
+        activeAlert: {}
+      })
   }
 
   onSwitch = (nameWP, id_t) => {

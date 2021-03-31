@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 // Видеокарты
 import gt730_notwork from '../../img/work/Nofancard_notwork.png';
@@ -63,7 +63,7 @@ const click = (
   )
 }
 
-class Click extends Component {
+class Click extends PureComponent {
 
   constructor(props){
     super(props)
@@ -96,7 +96,7 @@ class Click extends Component {
     if (!this.props.working && voltage_VC + voltage <= max_voltage_VC) {
       this.start_cooldown(plus, voltage)
     }
-    else{
+    else if(voltage_VC + voltage > max_voltage_VC){
       this.props.onAlert('БП не потянет')
     }
   }
