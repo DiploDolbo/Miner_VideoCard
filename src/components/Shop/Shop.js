@@ -3,11 +3,16 @@ import './Shop.css'
 const Shop = ({ buy_click, library_VC }) => {
 
     const element = library_VC.map((item, i) => {
-        const {text, price} = item;
+        const {text, price, voltage, plus} = item;
         return(
             <div key = {`shop_item_${i}`} className = "shop_item">
-                <button onClick={() => { buy_click({text: text, price: price}) }}>Взять {text}</button>
-                <a>Стоит: {price}</a>
+                <button onClick={() => { buy_click({text: text, price: price, votage: voltage}) }}>Взять {text}</button>
+                <div className="info_shop_click">
+                    <a>Стоит: {price}</a>
+                    <a>Доход: {plus}</a>
+                    <a>Ватт: {voltage}</a>
+                </div>
+                
             </div>
         )
     })
@@ -20,7 +25,5 @@ const Shop = ({ buy_click, library_VC }) => {
         </div>
     )
 }
-
-
 
 export default Shop;

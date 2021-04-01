@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import "./alert.css";
 
 const Alert = ({ activeAlert, closeAlert }) => {
-    const element = activeAlert.map((item) => {
-        const { text, id } = item
-        return (
-            <div key = {`alert_${id}`}>
-                <Al
-                    text={text}
-                    id={id}
-                    closeAlert = {closeAlert}
-                />
-
-            </div>
-        )
-    })
+    let element = null;
+    if(activeAlert.text != undefined){
+        element = (<Al
+            text={activeAlert.text}
+            id={activeAlert.id}
+            closeAlert = {closeAlert}
+        />)
+        
+    }
     return (
         <div id="alert_Cont">
             {element}
@@ -23,7 +19,7 @@ const Alert = ({ activeAlert, closeAlert }) => {
     )
 }
 
-class Al extends Component {
+class Al extends PureComponent {
 
     // constructor(props) {
     //     super(props);

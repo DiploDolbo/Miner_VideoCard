@@ -5,7 +5,11 @@
 .Shop button{
     height: max-content;
     width: 200px;
-    font-size: 20px;
+    font-size: 28px;
+}
+
+#shop_list{
+    margin-top: 20px;
 }
 
 .shop_item{
@@ -21,4 +25,9 @@
 }
 .shop_item > * {
     margin: 5px 5px 5px 5px;
+}
+
+.info_shop_click{
+    display: flex;
+    flex-direction: column;
 }
