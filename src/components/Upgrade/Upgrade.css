@@ -8,6 +8,10 @@
     font-size: 20px;
 }
 
+#upgrade_list{
+    margin-top: 20px;
+}
+
 .upgrade_item{
     display: flex;
     flex-direction: row;
