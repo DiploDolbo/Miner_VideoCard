@@ -5,7 +5,7 @@ import "./Upgrade.css"
 const Upgrade = ({ upgrade_VC }) => {
 
     const element = upgrade_VC.map((item, i) => {
-        const { buy, text, price, func, properties } = item;
+        const { buy, text, price, func, properties, name } = item;
         let classN = '', info_upgrade = `Стоит: ${price}`, click = () => func(properties, price);
         if(!buy) 
         {
@@ -14,9 +14,22 @@ const Upgrade = ({ upgrade_VC }) => {
             click = () => {};
         }
         return (
+            // <div className="name_buy">
+            //         <div className="name_VC">{text}</div>
+            //         <button onClick={() => { buy_click({text: text, price: price, votage: voltage}) }}>Купить</button>
+            //     </div>
+            //     <div className="info_shop_click">
+            //         <a>Стоит: {price}</a>
+            //         <a>Доход: {plus}</a>
+            //         <a>Ватт: {voltage}</a>
+            //     </div>
             <div key={`upgrade_${i}`} className={`upgrade_item ${classN}`}>
-                <button onClick={click}>{text}</button>
-                <a>{info_upgrade}</a>
+                <div className="name_buy_upgrade">
+                    <button className={`name_upgrade ${name}`} onClick={click}><div>{text}</div></button>
+                </div>
+                <div className="info_upgrade" >
+                    <div>{info_upgrade}</div>
+                </div>
             </div>
         )
     })

@@ -1,3 +1,10 @@
+.List-click{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #list{
     margin-top: 20px;
     overflow: auto;
@@ -7,7 +14,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 
@@ -18,10 +25,9 @@
     justify-content: center;
     /* background-color:darkorange; */
     /* border: 3px solid black; */
-    width: 133px;
+    width: 32.3vw;
     height: 133px;
-    padding: 0;
-    
+    padding: 2px;
 }
 
 .click button{
@@ -41,7 +47,6 @@
     background-repeat: no-repeat;
     /* background-color: black; */
 }
-
 
 .info_click_text{
     display: flex;
@@ -65,12 +70,33 @@
     font-size: 14px;
 }
 
+.img_VC{
+    height: max-content;
+}
+
 .img_VC img{
-    margin-top: 8px;
+    margin-top: 15px;
     position: relative;
-    zoom: 0.36;
+    zoom: 0.34;
+}
+
+.sell_on{
+    margin-top: -9px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.sell_on div{
+    margin-top: 15px;
+    margin-left: 35px;
+}
+
+.img_on{
+    zoom: 0.4;
 }
 
 .sell_click{
-    margin-top: -20px;
+    
 }

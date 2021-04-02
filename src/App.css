@@ -39,20 +39,27 @@
   align-items: center;
 }
 
-#game_info{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#game_info_img{
   height: 133px;
-  width: 300px;
-  font-size: 24px;
+  width: 400px;
   background-image: url('../src/img/work/status.png');
   background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
-#game_info > :first-child{
+#game_info{
+  height: 100px;
   margin-top: 30px;
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex-wrap: wrap;
+  font-size: 24px;
+}
+
+#game_info > a{
+  width: max-content;
 }
 
 #tab_s_u{
