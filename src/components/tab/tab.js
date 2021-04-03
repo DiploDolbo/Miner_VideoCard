@@ -17,11 +17,11 @@ export default class Tab extends Component {
 
     
     render() {
-        const {i, nameWP, text, onSwitch, clas} = this.props;
+        const {i, nameWP, text, onSwitch} = this.props;
         const id_tab = `${nameWP}_${i}`
         // let tabs = window.parent.document.getElementById('panel_WP');
         return (
-            <span id={id_tab} className={clas} onClick={onSwitch}>
+            <span id={id_tab} onClick={onSwitch}>
                 <a>{text ? text : 'Tab'}</a>
                 {/* <span onClick={(e) =>this.onClose(e)}> X</span> */}
             </span>

@@ -19,7 +19,7 @@ const CreateTab = ({tab, onSwitch, activeFrame}) =>{
                     clas = 'tab_wp'
                 }
         return(
-            <div key = {full_name}>
+            <div key = {full_name} className = {clas}>
                 <Tab 
                     {...item}
                     clas = {clas}

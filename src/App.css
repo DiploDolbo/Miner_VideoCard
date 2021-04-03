@@ -1,12 +1,17 @@
+#root{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .App {
+  width: 411px;
+  height: 731px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #282c34;
-  width: 100vw;
-  height: 100vh;
-  
+  background-color: #282c34; 
 }
 
 .App-header {
@@ -28,6 +33,7 @@
   display: flex;
   flex-direction: row;
   height: 100%;
+  width: 100%;
 }
 .Game-place p {
   font-size: 26px;
@@ -37,25 +43,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 #game_info_img{
+  margin-top: 15px;
   height: 133px;
-  width: 400px;
-  background-image: url('../src/img/work/status.png');
+  width: 392px;
+  border: 3px solid black;
+  background-color: #BF632A;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-image: url('../src/img/work/status.png');
   background-position: center;
   background-size: 100% 100%;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 #game_info{
-  height: 100px;
-  margin-top: 30px;
-  margin-left: 25px;
+  width: 352px;
+  height: 88px;
   display: flex;
   flex-direction: column;
   text-align: left;
   flex-wrap: wrap;
   font-size: 24px;
+  border: 3px solid black;
+  background: #1787D2;
 }
 
 #game_info > a{
@@ -66,7 +82,7 @@
   display: flex;
   flex-direction: row;
   height: 30px;
-  background-color: red;
+  width: 100%;
 }
 
 #frames{
