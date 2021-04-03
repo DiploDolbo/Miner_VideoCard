@@ -2,30 +2,107 @@
     overflow: auto;
 }
 
-.Upgrade button{
-    height: max-content;
-    width: 200px;
-    font-size: 20px;
+.Upgrade button {
+    border-radius: 0;
+    outline: 0;
 }
 
-#upgrade_list{
+/* .Upgrade button:focus{
+    background-color: #E67732;
+} */
+.Upgrade button:active {
+    animation: anim-effect-buy 0.1s forwards;
+}
+
+@keyframes anim-effect-buy {
+    0% {
+        transform: scale3d(0.9, 0.9, 1);
+    }
+
+    25%,
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.Upgrade button>div {
+    font-size: 16px;
+    margin-top: 20vw;
+}
+
+#upgrade_list {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* align-items: center; */
+    justify-content: left;
 }
 
-.upgrade_item{
+.name_upgrade {
+    height: 31vw;
+    width: 31vw;
+    font-size: 20px;
+    background-color: #BF632A;
+    border: 3px solid black;
+}
+
+.info_upgrade {
+    height: 30vw;
+    width: 100%;
+    font-size: 20px;
+    background-color: #BF632A;
+    border: 3px solid black;
+}
+
+.upgrade_item {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
 }
-.upgrade_item a{
-    text-align: left;
-    width: 160px;
-    font-size: 20px;
+
+.upgrade_item>* {
+    margin: 5px;
 }
-.upgrade_item > * {
-    margin: 5px 5px 5px 5px;
-}
-.buy{
+
+.buy {
     background-color: gray;
+}
+
+/* .buy :active {
+    animation: anim-effect-notbuy 0.1s forwards;
+}
+
+@keyframes anim-effect-notbuy {
+    0% {
+        background-color: red;
+    }
+
+    100% {
+        background-color: #BF632A;
+    }
+} */
+
+.autoclick {
+    background-size: contain;
+    background-image: url('../../img/work/autoclick.png');
+    background-repeat: no-repeat;
+}
+
+.BP{
+    background-position: top;
+    background-size: 95%;
+    background-image: url('../../img/work/bp.png');
+    background-repeat: no-repeat;
+}
+
+.FP{
+    background-size: contain;
+    background-image: url('../../img/work/mesto.png');
+    background-repeat: no-repeat;
 }

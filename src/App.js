@@ -17,20 +17,21 @@ export default class App extends PureComponent {
     this.count_buy_VC = 0;
     this.library_VC =
       [
-        { time_1_percent: 2.4, text: 'GT730', plus: 1, price: 5, voltage: 1 },
-        { time_1_percent: 2.4, text: 'GT750', plus: 1.5, price: 8, voltage: 2 },
-        { time_1_percent: 2.4, text: 'GT760', plus: 2, price: 16, voltage: 3 }
+        { time_1_percent: 2.4, text: 'GT730', plus: 1, price: 5, voltage: 1, coif_volt: 0.5 },
+        { time_1_percent: 2.4, text: 'GT750', plus: 1.5, price: 8, voltage: 2, coif_volt: 0.5},
+        { time_1_percent: 2.4, text: 'GT760', plus: 2, price: 16, voltage: 3, coif_volt: 0.5 }
       ];
     this.upgrade_VC = [
-      { buy: true, properties: 0.5, text: 'Помощь братана', func: this.autoClick, price: 100, coef: 0.1 },
-      { buy: true, properties: 2, text: 'БП по лучше', func: this.pluce_voltage_VC, price: 100, coef: 0},
-      { buy: true, properties: 1, text: "Освободить место", func: this.plus_count_VC, price: 200, coef: 0 }
+      { buy: true, properties: 0.5, name: 'autoclick', text: 'Помощь братана', func: this.autoClick, price: 100, coef: 0.1 },
+      { buy: true, properties: 2, name: 'BP', text: 'БП по лучше', func: this.pluce_voltage_VC, price: 100, coef: 0},
+      { buy: true, properties: 1, name: 'FP', text: "Освободить место", func: this.plus_count_VC, price: 200, coef: 0 }
     ]
   }
 
   state = {
     money: 300,
     spentWatts: 0,
+    day: 0,
     count: 0,
     payment: 0,
     count_VC: 0,
@@ -57,7 +58,7 @@ export default class App extends PureComponent {
   componentDidMount() {
     this.add_click({ text: 'GT730', price: 0 })
     this.paymentInterval = setInterval(this.paymentTime, this.time_payment * 1000)
-    this.spentWattsInterval = setInterval(this.spentWattsFunction, 1000)
+    this.spentWattsInterval = setInterval(this.spentWattsFunction, 2400)
   }
 
   paymentTime = () => {
@@ -68,15 +69,18 @@ export default class App extends PureComponent {
     console.log(pay)
     this.setState({
         money: mon,
-        spentWatts: 0
+        spentWatts: 0,
+        day: 0
       })
   }
 
   spentWattsFunction = () => {
-    const {spentWatts, voltage_VC} = this.state;
+    const {spentWatts, voltage_VC, day} = this.state;
     let pay = +(spentWatts + voltage_VC * this.coef_watts).toFixed(1)
+    let d = day + 1;
     this.setState({
-      spentWatts: pay
+      spentWatts: pay,
+      day: d
     })
 
   }
@@ -149,7 +153,7 @@ export default class App extends PureComponent {
       volt = this.state.voltage_VC + voltage;
       click.working = true;
     }
-    else {
+    else{
       volt = this.state.voltage_VC - voltage;
       click.working = false;
     }
@@ -210,6 +214,32 @@ export default class App extends PureComponent {
     })
   }
 
+  turn_on_off_VC = (voltage, working, index, VC_on, coif_volt) => {
+    let volt;
+    // const indexClick = this.state.masClick.findIndex((item) => { return item.id === id && item.text === text })
+    const fClick = this.state.masClick.slice(0, index);
+    const sClick = this.state.masClick.slice(index + 1);
+    let click = Object.assign({}, this.state.masClick[index]);
+    if (working && !VC_on) {
+      volt = this.state.voltage_VC - voltage * 2;
+      click.working = false;
+    }
+    else if(!working && !VC_on){
+      volt = this.state.voltage_VC - voltage;
+      click.working = false;
+    }
+    else if(VC_on)
+    {
+      volt = this.state.voltage_VC + voltage;
+      click.working = false;
+    }
+    this.setState({
+      masClick: [...fClick, click, ...sClick],
+      voltage_VC: volt
+    })
+
+  }
+
   onAlert = (message) => {
     const newAlert = { text: message, id: 0 };
     this.setState({
@@ -238,7 +268,7 @@ export default class App extends PureComponent {
     const { 
       money, masClick, activeAlert, tab, frame,
       activeFrame, auto_click, count_VC, max_count_VC,
-       voltage_VC, max_voltage_VC 
+       voltage_VC, max_voltage_VC, spentWatts, day
       } = this.state;
     return (
       <div className='App'>
@@ -269,6 +299,9 @@ export default class App extends PureComponent {
           voltage_VC={voltage_VC}
           max_voltage_VC={max_voltage_VC}
           onAlert={this.onAlert}
+          turn_on_off_VC={this.turn_on_off_VC}
+          spentWatts={spentWatts}
+          day={day}
         ></GamePlace>
       </div>
     )
@@ -279,7 +312,8 @@ const GamePlace = ({
   masClick, money, onClick, buy_click, sell_click,
   library_VC, upgrade_VC, auto_click, tab, frame,
   activeFrame, onSwitch, max_count_VC, count_VC,
-  up_voltage, max_voltage_VC, voltage_VC, onAlert
+  up_voltage, max_voltage_VC, voltage_VC, onAlert,
+  turn_on_off_VC, spentWatts, day
 }) => {
   return (
     <div className='Game-place'>
@@ -292,10 +326,14 @@ const GamePlace = ({
           >
           </Tab>
         </div>
-        <div id="game_info">
-          <a>Намайнил: {money}</a>
-          <a>Видюх: {count_VC}/{max_count_VC} </a>
-          <a>БП: {voltage_VC}/{max_voltage_VC} </a>
+        <div id="game_info_img">
+          <div id="game_info">
+            <a>Баланс: {money}</a>
+            <a>Видюх: {count_VC}/{max_count_VC} </a>
+            <a>БП: {voltage_VC}/{max_voltage_VC} </a>
+            <a>День: {day}</a>
+            <a>Налоги: {spentWatts}</a>
+          </div>
         </div>
         <div id='frames'>
           <Frame
@@ -313,6 +351,7 @@ const GamePlace = ({
             voltage_VC={voltage_VC}
             max_voltage_VC={max_voltage_VC}
             onAlert={onAlert}
+            turn_on_off_VC={turn_on_off_VC}
           >
           </Frame>
 
