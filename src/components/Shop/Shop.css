@@ -5,10 +5,18 @@
 .Shop button{
     height: max-content;
     font-size: 24px;
-    background-color: #BF632A;
-    border: 3px solid black;
+    height: 122px;
+    width: 122px;
+    font-size: 20px;
+    background-color: #A38D8A;
+    border: 2px solid #131212;
+    display: flex;
+    flex-direction: column-reverse;
     border-radius: 0;
     outline:0;
+}
+.Shop button > div{
+    width: 100%;
 }
 
 .Shop button:active {
@@ -34,14 +42,8 @@
     margin-top: 20px;
 }
 
-.name_buy > *{
-    margin: 3px;
-}
-
 .name_VC{
     font-size: 24px;
-    background-color: #BF632A;
-    border: 3px solid black;
 }
 
 .shop_item{
@@ -63,10 +65,17 @@
     display: flex;
     flex-direction: column;
     background-color: #BF632A;
-    border: 3px solid black;
-    width: 100%;
+    border: 2 solid black;
+    width: 267px;
+    height: 123px;
 }
 
 .price{
     color: rgb(24, 211, 7);
+}
+
+.GT730{
+    background-size: contain;
+    background-image: url('../../img/work/Nofancard_notwork.png');
+    background-repeat: no-repeat;
 }

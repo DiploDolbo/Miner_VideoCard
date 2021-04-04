@@ -29,9 +29,13 @@
     }
 }
 
+.Upgrade button{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
 .Upgrade button>div {
     font-size: 16px;
-    margin-top: 20vw;
 }
 
 #upgrade_list {
@@ -44,19 +48,19 @@
 }
 
 .name_upgrade {
-    height: 31vw;
-    width: 31vw;
+    height: 122px;
+    width: 122px;
     font-size: 20px;
     background-color: #BF632A;
-    border: 3px solid black;
+    border: 2px solid black;
 }
 
 .info_upgrade {
-    height: 30vw;
+    height: 116px;
     width: 100%;
     font-size: 20px;
     background-color: #BF632A;
-    border: 3px solid black;
+    border: 2px solid black;
 }
 
 .upgrade_item {

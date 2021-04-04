@@ -171,17 +171,17 @@ class Click extends PureComponent {
     return (
       <>
         <div className="info_click">
-          {/* <img className="info_click_img" alt={'logo'} src={info_click_img}></img> */}
           <div className="info_click_text">
             <div className='name_click'>{text}</div>
             <div className="time_cooldown">{(time_1_percent - cooldown * time_1_percent / 100).toFixed(2)} сек</div>
           </div>
-          <div className="img_VC" onClick={() => { this.click(plus, voltage) }}><img src={img} alt={'logo'}></img></div>
-          <div className="sell_on">
-            <button className="sell_click" onClick={this.sell}>Sell</button>
-            <div className="img_on" onClick={() => { this.turn_VC(plus, voltage) }}><img src={img_on} alt={'logo'}></img></div>
-          </div>
         </div>
+        <div className="img_VC" onClick={() => { this.click(plus, voltage) }}><img src={img} alt={'logo'}></img></div>
+        <div className="sell_on">
+          <button className="sell_click" onClick={this.sell}>Sell</button>
+          <div className="img_on" onClick={() => { this.turn_VC(plus, voltage) }}><img src={img_on} alt={'logo'}></img></div>
+        </div>
+        
         {/* <progress max="100" value={cooldown}></progress> */}
 
       </>

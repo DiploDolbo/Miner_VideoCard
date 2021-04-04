@@ -274,7 +274,7 @@ export default class App extends PureComponent {
       <div className='App'>
         <div className='App-header'>
           <a>Miner_VideoCard</a>
-          <a style={{ color: 'darkred' }}>С одобрения Ирины</a>
+          <a style={{ color: 'darkred' }}>С Неодобрения Ирины</a>
         </div>
         <Alert
           activeAlert={activeAlert}

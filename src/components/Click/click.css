@@ -1,19 +1,15 @@
 .List-click{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 75%;
 }
 
 #list{
     margin-top: 20px;
     overflow: auto;
-    height: max-content;
-    max-height: 75vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: left;
 }
 
@@ -21,80 +17,86 @@
 .click {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     /* background-color:darkorange; */
     /* border: 3px solid black; */
-    width: 32.3vw;
-    height: 133px;
-    padding: 2px;
+    align-items: center;
+    width: 127px;
+    height: 128px;
+    padding: 5px;
 }
 
 .click button{
     font-size: 19px;
 }
 
-.click>* {
-    margin-left: 5px;
-    margin-right: 5px;
-}
 
 .info_click{
-    width: 100%;
-    height: 100%;
-    background-size: contain;
-    background-image: url('../../img/work/box.png');
-    background-repeat: no-repeat;
-    /* background-color: black; */
+    height: 46px;
+    width: 127px;
+    border: 2px solid black;
+    background-color: #A38D8A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .info_click_text{
+    width: 93px;
+    height: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-top: 12px;
     color: #112533;
+    border: 2px solid black;
+    background-color: #5484AF;;
 }
 
 .name_click{
     height: max-content;
     width: max-content;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .time_cooldown{
     height: max-content;
     width: max-content;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .img_VC{
-    height: max-content;
+    width: 115px;
+    height: 52px;
+    background: #67605E;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
 }
 
 .img_VC img{
-    margin-top: 15px;
     position: relative;
     zoom: 0.34;
 }
 
 .sell_on{
-    margin-top: -9px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    background-color: #A38D8A;
+    width: 127px;
+    height: 26px;
+    border: 2px solid black;
 }
 
 .sell_on div{
-    margin-top: 15px;
     margin-left: 35px;
 }
 
 .img_on{
-    zoom: 0.4;
+    margin-top: 15px;
+    zoom: 0.25;
 }
 
 .sell_click{

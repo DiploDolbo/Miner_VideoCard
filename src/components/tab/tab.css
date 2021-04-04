@@ -2,11 +2,10 @@
   display: flex;
   width: 100%;
   cursor: pointer;
-  /* border: 0.5px solid #636363; */
-  background-color: #eeee;
+  border: 1px solid #131212;
+  background-color: #A38D8A;
   align-items: center;
   justify-content: center;
-
   height: 100%;
 }
 
@@ -15,7 +14,7 @@
 }
 
 .tab_wp_active {
-  background-color: rgb(189, 189, 189) !important;
+  background-color: #B7A7A1 !important;
   opacity: 1;
 }
 

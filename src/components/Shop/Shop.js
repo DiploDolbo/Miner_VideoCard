@@ -7,8 +7,10 @@ const Shop = ({ buy_click, library_VC }) => {
         return(
             <div key = {`shop_item_${i}`} className = "shop_item">
                 <div className="name_buy">
-                    <div className="name_VC">{text}</div>
-                    <button onClick={() => { buy_click({text: text, price: price, votage: voltage}) }}>Купить</button>
+                {/* <button className={`name_upgrade ${name}`} onClick={click}><div>{text}</div></button> */}
+                    <button className={`name_VC ${text}`} onClick={() => { buy_click({text: text, price: price, votage: voltage}) }}>
+                        <div >{text}</div>
+                    </button>
                 </div>
                 <div className="info_shop_click">
                     <a className="price">Стоит: {price}</a>
