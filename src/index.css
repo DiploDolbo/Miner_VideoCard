@@ -4,10 +4,8 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
     
-    font-family: 'Ruslan Display', cursive;
-    
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -26,5 +24,4 @@ button{
   /* appearance: none; */
   border: 0;
   border-radius: 5px;
-  font-family: 'Ruslan Display', cursive;
 }

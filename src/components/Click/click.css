@@ -22,18 +22,14 @@
     align-items: center;
     width: 127px;
     height: 128px;
-    padding: 5px;
-}
-
-.click button{
-    font-size: 19px;
+    margin: 4.5px;
 }
 
 
 .info_click{
     height: 46px;
     width: 127px;
-    border: 2px solid black;
+    border: 3.3px solid black;
     background-color: #A38D8A;
     display: flex;
     flex-direction: column;
@@ -50,28 +46,28 @@
     justify-content: center;
     position: relative;
     color: #112533;
-    border: 2px solid black;
+    border: 3.3px solid black;
     background-color: #5484AF;;
 }
 
 .name_click{
     height: max-content;
     width: max-content;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .time_cooldown{
     height: max-content;
     width: max-content;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .img_VC{
     width: 115px;
     height: 52px;
     background: #67605E;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
+    border-left: 3.3px solid black;
+    border-right: 3.3px solid black;
 }
 
 .img_VC img{
@@ -87,7 +83,8 @@
     background-color: #A38D8A;
     width: 127px;
     height: 26px;
-    border: 2px solid black;
+    border: 3.3px solid black;
+    
 }
 
 .sell_on div{
@@ -100,5 +97,6 @@
 }
 
 .sell_click{
-    
+    font-size: 16px;
+    font-weight: bold;
 }

@@ -13,9 +13,9 @@ const Shop = ({ buy_click, library_VC }) => {
                     </button>
                 </div>
                 <div className="info_shop_click">
-                    <a className="price">Стоит: {price}</a>
                     <a>Доход: {plus}</a>
                     <a>Ватт: {voltage}</a>
+                    <a className="price_shop">Стоит: {price}</a>
                 </div>
                 
             </div>

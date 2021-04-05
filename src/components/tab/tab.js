@@ -22,7 +22,7 @@ export default class Tab extends Component {
         // let tabs = window.parent.document.getElementById('panel_WP');
         return (
             <span id={id_tab} onClick={onSwitch}>
-                <a>{text ? text : 'Tab'}</a>
+                
                 {/* <span onClick={(e) =>this.onClose(e)}> X</span> */}
             </span>
         )

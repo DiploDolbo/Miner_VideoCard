@@ -5,8 +5,8 @@ import "./Upgrade.css"
 const Upgrade = ({ upgrade_VC }) => {
 
     const element = upgrade_VC.map((item, i) => {
-        const { buy, text, price, func, properties, name } = item;
-        let classN = '', info_upgrade = `Стоит: ${price}`, click = () => func(properties, price);
+        const { buy, text, price, func, properties, name, name_properties, description } = item;
+        let classN = '', info_upgrade = '', click = () => func(properties, price);
         if(!buy) 
         {
             classN = 'buy';
@@ -28,7 +28,9 @@ const Upgrade = ({ upgrade_VC }) => {
                     <button className={`name_upgrade ${name}`} onClick={click}><div>{text}</div></button>
                 </div>
                 <div className="info_upgrade" >
-                    <div>{info_upgrade}</div>
+                    <div className="description_update">{description}</div>
+                    <div>{name_properties}: {properties}</div>
+                    <div className="price_upgrade">Стоит: {price}$</div>
                 </div>
             </div>
         )

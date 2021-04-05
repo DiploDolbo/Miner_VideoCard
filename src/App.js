@@ -22,9 +22,10 @@ export default class App extends PureComponent {
         { time_1_percent: 2.4, text: 'GT760', plus: 2, price: 16, voltage: 3, coif_volt: 0.5 }
       ];
     this.upgrade_VC = [
-      { buy: true, properties: 0.5, name: 'autoclick', text: 'Помощь братана', func: this.autoClick, price: 100, coef: 0.1 },
-      { buy: true, properties: 2, name: 'BP', text: 'БП по лучше', func: this.pluce_voltage_VC, price: 100, coef: 0},
-      { buy: true, properties: 1, name: 'FP', text: "Освободить место", func: this.plus_count_VC, price: 200, coef: 0 }
+      { buy: true, description: 'Братан будет кликать за тебя'
+      , name_properties: 'Время задержки', properties: 0.5, name: 'autoclick', text: 'Помощь братана', func: this.autoClick, price: 100, coef: 0.1 },
+      { buy: true, description: 'Aerocool топ за сови деньги', name_properties: 'Ватт', properties: 2, name: 'BP', text: 'БП по лучше', func: this.pluce_voltage_VC, price: 100, coef: 0},
+      { buy: true, description: 'Ещё одна полочка', name_properties: 'Плюс место', properties: 1, name: 'FP', text: "Освободить место", func: this.plus_count_VC, price: 200, coef: 0 }
     ]
   }
 
@@ -43,16 +44,20 @@ export default class App extends PureComponent {
     ],
     activeAlert: {},
     tab: [
-      { nameWP: "Click", text: "Click" },
-      { nameWP: "Shop", text: "Магазин" },
-      { nameWP: "Upgrade", text: "Upgrade" }
+      { nameWP: "Click", text: "ГЛАВНОЕ" },
+      { nameWP: "Shop", text: "МАГАЗИН" },
+      { nameWP: "Upgrade", text: "УЛУЧШИТЬ" },
+      { nameWP: "Test_1", text: "Text_1"},
+      { nameWP: "Test_2", text: "Text_2"},
+      { nameWP: "Test_3", text: "Text_3"},
     ],
     frame: [
       { nameF: "Click" },
       { nameF: "Shop" },
       { nameF: "Upgrade" }
     ],
-    activeFrame: { name: "Click" }
+    activeFrame: { name: "Click" },
+    curtain: false
   }
 
   componentDidMount() {
@@ -240,6 +245,7 @@ export default class App extends PureComponent {
 
   }
 
+  //Alert
   onAlert = (message) => {
     const newAlert = { text: message, id: 0 };
     this.setState({
@@ -253,6 +259,7 @@ export default class App extends PureComponent {
       })
   }
 
+  //Tab
   onSwitch = (nameWP, id_t) => {
     const { name, id } = this.state.activeFrame;
 
@@ -264,17 +271,24 @@ export default class App extends PureComponent {
     }
   }
 
+  switch_curtain = () => {
+    const {curtain} = this.state
+    this.setState({
+      curtain: !curtain
+    })
+  }
+
   render() {
     const { 
       money, masClick, activeAlert, tab, frame,
       activeFrame, auto_click, count_VC, max_count_VC,
-       voltage_VC, max_voltage_VC, spentWatts, day
+       voltage_VC, max_voltage_VC, spentWatts, day,
+       curtain
       } = this.state;
     return (
       <div className='App'>
         <div className='App-header'>
-          <a>Miner_VideoCard</a>
-          <a style={{ color: 'darkred' }}>С Неодобрения Ирины</a>
+          <a>MINER VIDEOCARD</a>
         </div>
         <Alert
           activeAlert={activeAlert}
@@ -302,6 +316,8 @@ export default class App extends PureComponent {
           turn_on_off_VC={this.turn_on_off_VC}
           spentWatts={spentWatts}
           day={day}
+          curtain={curtain}
+          switch_curtain={this.switch_curtain}
         ></GamePlace>
       </div>
     )
@@ -313,7 +329,8 @@ const GamePlace = ({
   library_VC, upgrade_VC, auto_click, tab, frame,
   activeFrame, onSwitch, max_count_VC, count_VC,
   up_voltage, max_voltage_VC, voltage_VC, onAlert,
-  turn_on_off_VC, spentWatts, day
+  turn_on_off_VC, spentWatts, day, curtain, 
+  switch_curtain
 }) => {
   return (
     <div className='Game-place'>
@@ -323,12 +340,14 @@ const GamePlace = ({
             tab={tab}
             activeFrame={activeFrame}
             onSwitch={onSwitch}
+            curtain={curtain}
+            switch_curtain={switch_curtain}
           >
           </Tab>
         </div>
         <div id="game_info_img">
           <div id="game_info">
-            <a>Баланс: {money}</a>
+            <a>Баланс: {money}$</a>
             <a>Видюх: {count_VC}/{max_count_VC} </a>
             <a>БП: {voltage_VC}/{max_voltage_VC} </a>
             <a>День: {day}</a>

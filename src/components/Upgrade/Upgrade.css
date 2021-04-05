@@ -5,6 +5,7 @@
 .Upgrade button {
     border-radius: 0;
     outline: 0;
+    /* font-weight: bold; */
 }
 
 /* .Upgrade button:focus{
@@ -35,6 +36,7 @@
 }
 
 .Upgrade button>div {
+    width: 100%;
     font-size: 16px;
 }
 
@@ -51,16 +53,19 @@
     height: 122px;
     width: 122px;
     font-size: 20px;
-    background-color: #BF632A;
-    border: 2px solid black;
+    background-color: #A38D8A;
+    border: 3.3px solid black;
 }
 
 .info_upgrade {
     height: 116px;
     width: 100%;
     font-size: 20px;
-    background-color: #BF632A;
-    border: 2px solid black;
+    background-color: #A38D8A;
+    border: 3.3px solid black;
+    text-align: left;
+    padding: 5px;
+    position: relative;
 }
 
 .upgrade_item {
@@ -78,6 +83,18 @@
     background-color: gray;
 }
 
+.description_update{
+    font-size: 16px;
+    border-bottom: 1px solid black;
+}
+
+.price_upgrade{
+    text-align: right !important;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
 /* .buy :active {
     animation: anim-effect-notbuy 0.1s forwards;
 }
@@ -93,20 +110,22 @@
 } */
 
 .autoclick {
-    background-size: contain;
+    background-position: 14px 15px;
+    background-size: 94px 66px;
     background-image: url('../../img/work/autoclick.png');
     background-repeat: no-repeat;
 }
 
 .BP{
-    background-position: top;
-    background-size: 95%;
+    background-position: 10px 12px ;
+    background-size: 94px 66px;
     background-image: url('../../img/work/bp.png');
     background-repeat: no-repeat;
 }
 
 .FP{
-    background-size: contain;
+    background-position: top;
+    background-size: 94px 66px;
     background-image: url('../../img/work/mesto.png');
     background-repeat: no-repeat;
 }

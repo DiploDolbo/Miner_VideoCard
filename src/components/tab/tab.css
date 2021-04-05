@@ -1,8 +1,10 @@
 .tab_wp {
   display: flex;
-  width: 100%;
+  width: 140px;
+  height: 44px !important;
   cursor: pointer;
-  border: 1px solid #131212;
+  border: solid #131212;
+  border-width: 3.3px 2px 0px 3.3px;
   background-color: #A38D8A;
   align-items: center;
   justify-content: center;
@@ -24,4 +26,18 @@
 
 .tab_close:hover {
   opacity: 1 !important;
+}
+
+#curtain{
+  width: 409px;
+  height: 25px;
+  background: #A38D8A;
+  /* border: 3.3px solid black; */
+  border: 3.3px solid black;
+
+  z-index: 1;
+}
+
+.active_curtain{
+  background-color: #B7A7A1 !important;
 }

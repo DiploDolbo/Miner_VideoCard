@@ -9,7 +9,7 @@
     width: 122px;
     font-size: 20px;
     background-color: #A38D8A;
-    border: 2px solid #131212;
+    border: 3.3px solid #131212;
     display: flex;
     flex-direction: column-reverse;
     border-radius: 0;
@@ -17,6 +17,7 @@
 }
 .Shop button > div{
     width: 100%;
+    /* font-weight: bold; */
 }
 
 .Shop button:active {
@@ -64,18 +65,36 @@
 .info_shop_click{
     display: flex;
     flex-direction: column;
-    background-color: #BF632A;
-    border: 2 solid black;
+    background-color: #A38D8A;
+    border: 3.3px solid black;
     width: 267px;
-    height: 123px;
+    height: 118px;
+    padding: 5px;
+    position: relative;
 }
 
-.price{
-    color: rgb(24, 211, 7);
+.price_shop{
+    text-align: right !important;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .GT730{
+    background-position: center;
     background-size: contain;
     background-image: url('../../img/work/Nofancard_notwork.png');
+    background-repeat: no-repeat;
+}
+.GT750{
+    background-position: center;
+    background-size: contain;
+    background-image: url('../../img/work/2fancard_notwork.png');
+    background-repeat: no-repeat;
+}
+.GT760{
+    background-position: center;
+    background-size: contain;
+    background-image: url('../../img/work/Watercard_notwork.png');
     background-repeat: no-repeat;
 }
