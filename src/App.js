@@ -15,6 +15,7 @@ export default class App extends PureComponent {
     this.time_payment = 72;
     this.coef_watts = 0.1;
     this.count_buy_VC = 0;
+    this.chilling = 0;
     this.library_VC =
       [
         { time_1_percent: 2.4, text: 'GT730', plus: 1, price: 5, voltage: 1, coif_volt: 0.5 },
@@ -22,10 +23,17 @@ export default class App extends PureComponent {
         { time_1_percent: 2.4, text: 'GT760', plus: 2, price: 16, voltage: 3, coif_volt: 0.5 }
       ];
     this.upgrade_VC = [
-      { buy: true, description: 'Братан будет кликать за тебя'
-      , name_properties: 'Время задержки', properties: 0.5, name: 'autoclick', text: 'Помощь братана', func: this.autoClick, price: 100, coef: 0.1 },
-      { buy: true, description: 'Aerocool топ за сови деньги', name_properties: 'Ватт', properties: 2, name: 'BP', text: 'БП по лучше', func: this.pluce_voltage_VC, price: 100, coef: 0},
-      { buy: true, description: 'Ещё одна полочка', name_properties: 'Плюс место', properties: 1, name: 'FP', text: "Освободить место", func: this.plus_count_VC, price: 200, coef: 0 }
+      { buy: true, description: 'Братан будет кликать за тебя',
+        name_properties: 'Время задержки', properties: 0.5, 
+        name: 'autoclick', text: 'Помощь братана', func: this.autoClick,
+        price: 100, coef: 0.1 },
+      { buy: true, description: 'Aerocool топ за сови деньги',
+        name_properties: 'Ватт', properties: 2, name: 'BP', 
+        text: 'БП по лучше', func: this.pluce_voltage_VC, price: 100, coef: 0},
+      { buy: true, description: 'Ещё одна полочка',
+        name_properties: 'Плюс место', properties: 1, name: 'FP',
+        text: "Освободить место", func: this.plus_count_VC, price: 200, coef: 0 },
+
     ]
   }
 
@@ -39,9 +47,10 @@ export default class App extends PureComponent {
     max_count_VC: 3,
     voltage_VC: 0,
     max_voltage_VC: 10,
+    temp_VC: 23,
+    max_temp_VC: 70,
     auto_click: { can: false, time: 0 },
-    masClick: [
-    ],
+    masClick: [],
     activeAlert: {},
     tab: [
       { nameWP: "Click", text: "ГЛАВНОЕ" },
@@ -138,6 +147,10 @@ export default class App extends PureComponent {
     }
   }
 
+  plus_chilling = (count, price) => {
+
+  }
+
   // 
 
   click = (plus) => {
@@ -149,22 +162,25 @@ export default class App extends PureComponent {
   }
 
   up_voltage = (voltage, working, index) => {
-    let volt;
+    let volt, temp;
     // const indexClick = this.state.masClick.findIndex((item) => { return item.id === id && item.text === text })
     const fClick = this.state.masClick.slice(0, index);
     const sClick = this.state.masClick.slice(index + 1);
     let click = Object.assign({}, this.state.masClick[index]);
     if (!working) {
       volt = this.state.voltage_VC + voltage;
+      temp = this.state.temp_VC + 20;
       click.working = true;
     }
     else{
       volt = this.state.voltage_VC - voltage;
+      temp = this.state.temp_VC - 20;
       click.working = false;
     }
     this.setState({
       masClick: [...fClick, click, ...sClick],
-      voltage_VC: volt
+      voltage_VC: volt,
+      temp_VC: temp
     })
   }
 
@@ -282,8 +298,8 @@ export default class App extends PureComponent {
     const { 
       money, masClick, activeAlert, tab, frame,
       activeFrame, auto_click, count_VC, max_count_VC,
-       voltage_VC, max_voltage_VC, spentWatts, day,
-       curtain
+      voltage_VC, max_voltage_VC, temp_VC, max_temp_VC,
+      spentWatts, day,curtain
       } = this.state;
     return (
       <div className='App'>
@@ -312,6 +328,8 @@ export default class App extends PureComponent {
           up_voltage={this.up_voltage}
           voltage_VC={voltage_VC}
           max_voltage_VC={max_voltage_VC}
+          temp_VC={temp_VC}
+          max_temp_VC={max_temp_VC}
           onAlert={this.onAlert}
           turn_on_off_VC={this.turn_on_off_VC}
           spentWatts={spentWatts}
@@ -328,9 +346,9 @@ const GamePlace = ({
   masClick, money, onClick, buy_click, sell_click,
   library_VC, upgrade_VC, auto_click, tab, frame,
   activeFrame, onSwitch, max_count_VC, count_VC,
-  up_voltage, max_voltage_VC, voltage_VC, onAlert,
-  turn_on_off_VC, spentWatts, day, curtain, 
-  switch_curtain
+  up_voltage, max_voltage_VC, voltage_VC, temp_VC,
+  max_temp_VC, onAlert,turn_on_off_VC, spentWatts,
+  day, curtain, switch_curtain
 }) => {
   return (
     <div className='Game-place'>
@@ -347,9 +365,10 @@ const GamePlace = ({
         </div>
         <div id="game_info_img">
           <div id="game_info">
-            <a>Баланс: {money}$</a>
+            <a>Баланс: {money} $</a>
             <a>Видюх: {count_VC}/{max_count_VC} </a>
-            <a>БП: {voltage_VC}/{max_voltage_VC} </a>
+            <a>БП: {voltage_VC}/{max_voltage_VC} Вт </a>
+            <a>Градусы: {temp_VC}/{max_temp_VC} ℃ </a>
             <a>День: {day}</a>
             <a>Налоги: {spentWatts}</a>
           </div>
