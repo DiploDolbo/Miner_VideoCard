@@ -13,14 +13,14 @@ export default class App extends PureComponent {
     this.time_payment = 72;//время до налогов
     this.coef_watts = 0.01;//коэф Вт в день
     this.count_buy_VC = 0;//количество за всё время купленых видюх
-    this.count_Cooler = 0;//количество кулеров
     // this.nowork_temp = 0.2;//коэф неработающей VC 
     this.fine_temp = 4;//коэф за перегрев
+    this.oldChilling = 0;
     this.library_VC =
       [
-        { time_1_percent: 2.4, text: 'GT730', plus: 1, price: 5, voltage: 30, coif_volt: 0.5, temp: 15 },
-        { time_1_percent: 2.4, text: 'GT750', plus: 1.5, price: 8, voltage: 100, coif_volt: 0.5, temp: 20 },
-        { time_1_percent: 2.4, text: 'GT760', plus: 2, price: 16, voltage: 200, coif_volt: 0.5, temp: 25 }
+        { time_1_percent: 2.4, text: 'GT730', plus: 2, price: 50, voltage: 30, coif_volt: 0.5, temp: 15 },
+        { time_1_percent: 2.4, text: 'GT750', plus: 3, price: 80, voltage: 50, coif_volt: 0.5, temp: 20 },
+        { time_1_percent: 2.4, text: 'GT760', plus: 4, price: 160, voltage: 100, coif_volt: 0.5, temp: 25 }
       ];
     this.upgrade_VC = [
       {
@@ -57,7 +57,7 @@ export default class App extends PureComponent {
     count: 0,
     payment: 0,
     count_VC: 0,
-    max_count_VC: 12,
+    max_count_VC: 3,
     voltage_VC: 0,
     max_voltage_VC: 220,
     temp_VC: 30,
@@ -165,7 +165,6 @@ export default class App extends PureComponent {
   plus_chilling = (count, price) => {
     const { money, voltage_VC, count_Cooler, max_count_Cooler} = this.state;
     if (money >= price && count_Cooler <= max_count_Cooler) {
-      this.count_Cooler++;
       let mon = (+money - price).toFixed(1);
       this.masCooler.push(count / 100);
       this.setState({
@@ -203,8 +202,11 @@ export default class App extends PureComponent {
   }
 
   up_voltage = (voltage, working, index, coef, temp) => {
-    let volt, t, chil = 0;
-    this.masCooler.map((item) => chil += item)
+    let volt, t, chil = 0, c = 0;
+    
+    this.masCooler.map((item) => c += item)
+    if(this.oldChilling < c){chil = this.oldChilling;}
+    else{chil = c}
     // const indexClick = this.state.masClick.findIndex((item) => { return item.id === id && item.text === text })
     const fClick = this.state.masClick.slice(0, index);
     const sClick = this.state.masClick.slice(index + 1);
@@ -219,6 +221,7 @@ export default class App extends PureComponent {
       t = this.state.temp_VC - temp * (1 - chil);
       click.working = false;
     }
+    this.oldChilling = c;
     this.setState({
       masClick: [...fClick, click, ...sClick],
       voltage_VC: volt,
