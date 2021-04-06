@@ -1,17 +1,11 @@
 .tab_wp {
-  display: flex;
   width: 140px;
   height: 44px !important;
   cursor: pointer;
-  border: solid #131212;
-  border-width: 3.3px 2px 0px 3.3px;
+  border: 3.3px solid #131212;
   background-color: #A38D8A;
-  align-items: center;
-  justify-content: center;
   height: 100%;
-}
-
-.tab_wp a{
+  text-align: center;
   font-size: 24px;
 }
 
@@ -29,12 +23,12 @@
 }
 
 #curtain{
-  width: 409px;
+  width: 411px;
   height: 25px;
   background: #A38D8A;
   /* border: 3.3px solid black; */
-  border: 3.3px solid black;
-
+  border: solid black;
+  border-width: 0px 3.3px 3.3px 3.3px;
   z-index: 1;
 }
 

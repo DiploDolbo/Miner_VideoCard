@@ -6,6 +6,7 @@
   background: #6c6d6e;
   height: 100%;
   font-family: Impact;
+  touch-action: manipulation
 }
 
 *{
@@ -16,13 +17,12 @@
 
 .App {
   width: 411px;
-  height: 731px;
+  height: 733px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #B7A6A1;
-  border: 1px solid #131212;
 }
 
 .App-header {
@@ -61,8 +61,8 @@
 
 #game_info_img{
   margin-top: 15px;
-  height: 133px;
-  width: 392px;
+  height: 128px;
+  width: 397px;
   border: 3.3px solid black;
   background-color: #A38D8A;
   display: flex;
@@ -81,9 +81,10 @@
   flex-direction: column;
   text-align: left;
   flex-wrap: wrap;
-  font-size: 20px;
+  font-size: 16px;
   border: 3.3px solid black;
   background: #5484AF;
+  overflow-y: auto;
 }
 
 #game_info > a{

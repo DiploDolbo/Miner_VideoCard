@@ -1,5 +1,7 @@
 .Upgrade {
-    overflow: auto;
+    height: 390px;
+    width: 100%;
+    /* overflow-x: hidden; */
 }
 
 .Upgrade button {
@@ -44,10 +46,15 @@
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     /* align-items: center; */
     justify-content: left;
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
 }
+#upgrade_list::-webkit-scrollbar { width: 0; }
 
 .name_upgrade {
     height: 122px;
@@ -58,7 +65,7 @@
 }
 
 .info_upgrade {
-    height: 116px;
+    height: 122px;
     width: 100%;
     font-size: 20px;
     background-color: #A38D8A;
@@ -76,7 +83,7 @@
 }
 
 .upgrade_item>* {
-    margin: 5px;
+    margin: 5px 5px 4px 5px;
 }
 
 .buy {
@@ -127,5 +134,12 @@
     background-position: top;
     background-size: 94px 66px;
     background-image: url('../../img/work/mesto.png');
+    background-repeat: no-repeat;
+}
+
+.Cooler{
+    background-position: top;
+    background-size: 94px 66px;
+    background-image: url('../../img/work/fan.png');
     background-repeat: no-repeat;
 }

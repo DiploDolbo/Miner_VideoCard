@@ -1,5 +1,5 @@
 import React from 'react';
-import Tab from './tab';
+// import Tab from './tab';
 
 // import SwitchTab from './switch_tab.js';
 
@@ -21,7 +21,7 @@ const CreateTab = ({ tab, onSwitch, activeFrame, curtain, switch_curtain }) => {
             }
             return (
                 <div key={full_name} className={clas} onClick={() => onSwitch(nameWP, i)}>
-                    <a>{text ? text : 'Tab'}</a>
+                    {text ? text : 'Tab'}
                 </div>
             )
         }

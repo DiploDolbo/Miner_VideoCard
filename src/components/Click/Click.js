@@ -31,7 +31,7 @@ const click = (
     GT760_work: gt760_work,
   }
   const element = masClick.map((item, i) => {
-    const { time_1_percent, text, id, plus, voltage, working, coif_volt} = item;
+    const { time_1_percent, text, id, plus, voltage, working, coif_volt, temp} = item;
     const notwork = mas_VC[`${text}_notwork`];
     const work = mas_VC[`${text}_work`]
 
@@ -54,6 +54,7 @@ const click = (
           max_voltage_VC={max_voltage_VC}
           onAlert={onAlert}
           coif_volt={coif_volt}
+          temp={temp}
           turn_on_off_VC={turn_on_off_VC}
         ></Click>
       </div>
@@ -92,16 +93,16 @@ class Click extends PureComponent {
 
 
   turn_VC = () => {
-    const {voltage, working, index, coif_volt} = this.props
+    const {voltage, working, index, coif_volt, temp} = this.props
     if(this.VC_on){
       this.VC_on = false;
       clearInterval(this.time_auto_click)
       clearTimeout(this.time_interval_cooldown)
-      this.props.turn_on_off_VC(voltage, working, index, this.VC_on, coif_volt)
+      this.props.turn_on_off_VC(voltage, working, index, this.VC_on, coif_volt, temp)
     }
     else{
       this.VC_on = true;
-      this.props.turn_on_off_VC(voltage, working, index, this.VC_on, coif_volt)
+      this.props.turn_on_off_VC(voltage, working, index, this.VC_on, coif_volt, temp)
     }
     this.setState({
       cooldown: 0
@@ -125,14 +126,14 @@ class Click extends PureComponent {
     }
   }
   start_cooldown = (plus, voltage) => {
-    const { time_1_percent, working, index, coif_volt} = this.props;
-    this.props.up_voltage(voltage, working, index, this.VC_on, 1);
+    const { time_1_percent, working, index, coif_volt, temp} = this.props;
+    this.props.up_voltage(voltage, working, index, 1, temp);
     this.time_interval_cooldown = setInterval(() => this.plus_cooldown(plus, voltage), time_1_percent * 10)
   }
 
   plus_cooldown = (plus, voltage) => {
     const { cooldown } = this.state;
-    const { working, index, coif_volt} = this.props
+    const { working, index, coif_volt, temp} = this.props
     if (cooldown !== 100) {
       this.setState({
         cooldown: cooldown + 1
@@ -141,7 +142,7 @@ class Click extends PureComponent {
     else {
       clearInterval(this.time_interval_cooldown);
       this.props.onClick(plus);
-      this.props.up_voltage(voltage, working, index, this.VC_on, 1);
+      this.props.up_voltage(voltage, working, index, 1, temp);
       this.auto_click();
       this.setState({
         cooldown: 0
