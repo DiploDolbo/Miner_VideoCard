@@ -1,5 +1,6 @@
 .Shop {
-    overflow: auto;
+    height: 390px;
+    width: 100%;
 }
 
 .Shop button{
@@ -42,6 +43,7 @@
 #shop_list{
     margin-top: 20px;
 }
+#shop_list::-webkit-scrollbar { width: 0; }
 
 .name_VC{
     font-size: 24px;
@@ -59,7 +61,7 @@
     font-size: 20px;
 }
 .shop_item > * {
-    margin: 5px 5px 5px 5px;
+    margin: 5px 5px 4px 5px;
 }
 
 .info_shop_click{
@@ -68,7 +70,7 @@
     background-color: #A38D8A;
     border: 3.3px solid black;
     width: 267px;
-    height: 118px;
+    height: 122px;
     padding: 5px;
     position: relative;
 }

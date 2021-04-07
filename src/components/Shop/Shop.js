@@ -3,7 +3,7 @@ import './Shop.css'
 const Shop = ({ buy_click, library_VC }) => {
 
     const element = library_VC.map((item, i) => {
-        const {text, price, voltage, plus} = item;
+        const {text, price, voltage, plus, temp} = item;
         return(
             <div key = {`shop_item_${i}`} className = "shop_item">
                 <div className="name_buy">
@@ -15,6 +15,7 @@ const Shop = ({ buy_click, library_VC }) => {
                 <div className="info_shop_click">
                     <a>Доход: {plus}</a>
                     <a>Ватт: {voltage}</a>
+                    <a>Жарит: {temp} С°</a>
                     <a className="price_shop">Стоит: {price}</a>
                 </div>
                 
