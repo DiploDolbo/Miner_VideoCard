@@ -1,6 +1,6 @@
 .tab_wp {
   width: 140px;
-  height: 44px !important;
+  /* height: 44px !important; */
   cursor: pointer;
   border: 3.3px solid #131212;
   background-color: #A38D8A;

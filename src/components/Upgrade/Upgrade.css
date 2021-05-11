@@ -49,7 +49,6 @@
     /* flex-wrap: wrap; */
     /* align-items: center; */
     justify-content: left;
-    overflow-y: hidden;
     height: 100%;
     width: 100%;
     overflow-y: auto;
